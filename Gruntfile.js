@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         cssmin: {
             minify: {
                 files: {
-                    'css/dist/main.css': 'css/dist/main.min.css'
+                    'css/dist/main.css': 'css/dist/main.css'
                 }
             }
         },
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         uglify: {
             all: {
                 files: {
-                    'js/dist/app.min.js': 'js/dist/app.js'
+                    'js/dist/app.js': 'js/dist/app.js'
                 }
             }
         },
