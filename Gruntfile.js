@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         autoprefixer: {
             dist: {
                 files: {
-                    'css/dist//main.css': 'css/dist//main.css'
+                    'css/dist/main.css': 'css/dist/main.css'
                 }
             }
         },
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         cssmin: {
             minify: {
                 files: {
-                    'css/dist//main.css': 'css/dist//main.css'
+                    'css/dist/main.css': 'css/dist/main.css'
                 }
             }
         },
@@ -46,15 +46,15 @@ module.exports = function(grunt) {
 
         concat: {
             js: {
-                src: ['js/vendor/underscore-min.js', 'js/src/modules/*.js', 'js/src/*.js'],
-                dest: 'js/build/main.js'
+                src: ['js/src/modules/*.js', 'js/src/*.js'],
+                dest: 'js/dist/main.js'
             }
         },
 
         uglify: {
             all: {
                 files: {
-                    'js/build/main.min.js': 'js/build/main.js'
+                    'js/dist/main.min.js': 'js/dist/main.js'
                 }
             }
         },
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
             },
 
             scss: {
-                files: 'scss/**/*.scss',
+                files: 'css/src/**/*.scss',
                 tasks: ['sass', 'autoprefixer'],
                 options: {
                     livereload: true
