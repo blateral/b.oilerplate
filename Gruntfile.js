@@ -29,15 +29,12 @@ module.exports = function(grunt) {
         cssmin: {
             minify: {
                 files: {
-                    'css/dist/main.css': 'css/dist/main.css'
+                    'css/dist/main.css': 'css/dist/main.min.css'
                 }
             }
         },
 
         jshint: {
-            options: {
-                evil: true
-            },
             files: [
                 'Gruntfile.js',
                 'js/src/**/*.js'
@@ -48,13 +45,23 @@ module.exports = function(grunt) {
             js: {
                 src: ['js/src/modules/*.js', 'js/src/*.js'],
                 dest: 'js/dist/main.js'
+            },
+
+            vendor: {
+                src: ['js/vendor/**/*.js'],
+                dest: 'js/dist/libs.js'
+            },
+
+            all: {
+                src: ['js/dist/libs.js', 'js/dist/main.js'],
+                dest: 'js/dist/app.js'
             }
         },
 
         uglify: {
             all: {
                 files: {
-                    'js/dist/main.min.js': 'js/dist/main.js'
+                    'js/dist/app.min.js': 'js/dist/app.js'
                 }
             }
         },
@@ -63,10 +70,15 @@ module.exports = function(grunt) {
 
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['jshint', 'concat'],
+                tasks: ['jshint', 'concat:js', 'concat:all'],
                 options: {
                     livereload: true
                 }
+            },
+
+            vendor: {
+                files: '<%= concat.vendor.src %>',
+                tasks: ['concat:vendor', 'concat:all']
             },
 
             scss: {
@@ -88,7 +100,7 @@ module.exports = function(grunt) {
     });
 
     function createJsModule(data) {
-        var tpl = grunt.file.read('js/src/modules/module.tpl')
+        var tpl = grunt.file.read('js/src/modules/module.tpl'),
             out = grunt.template.process(tpl, {data: data});
 
         grunt.file.write('js/src/modules/' + data.name + '.js', out);
