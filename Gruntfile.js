@@ -88,17 +88,30 @@ module.exports = function(grunt) {
     });
 
     function createJsModule(data) {
-        var tpl = grutn.file.read
+        var tpl = grunt.file.read('js/src/modules/module.tpl')
+            out = grunt.template.process(tpl, {data: data});
+
+        grunt.file.write('js/src/modules/' + data.name + '.js', out);
+
+        grunt.log.writeln('Created js/src/modules/' + data.name + '.js');
     }
 
     grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
 
     grunt.registerTask('js-module', 'Creating module for js', function(moduleName){
+        var data;
+
         if (arguments.length === 0) {
-            grunt.log.writeln('Creating "MyModule"');
+            data = {
+                name: 'MyModule'
+            };
         } else {
-            grunt.log.writeln('Creating ' + moduleName);
+            data = {
+                name: moduleName
+            };
         }
+
+        createJsModule(data);
     });
 
 };

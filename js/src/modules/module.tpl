@@ -1,4 +1,5 @@
 var <%=name%> = (function(){
+
 	var defaults: {
 
 	};
