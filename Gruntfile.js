@@ -108,7 +108,6 @@ module.exports = function(grunt) {
         grunt.log.writeln('Created js/src/modules/' + data.name + '.js');
     }
 
-    grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
 
     grunt.registerTask('js-module', 'Creating module for js', function(moduleName){
         var data;
@@ -126,4 +125,6 @@ module.exports = function(grunt) {
         createJsModule(data);
     });
 
+    grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
+    grunt.registerTask('init', ['concat', 'sass', 'autoprefixer']);
 };

@@ -36,4 +36,8 @@ function loadTpl(url) {
     jQuery: Dom ready
 /****************************************/
 $(document).ready(function(){
+
+    // Tell that we have javascript running
+    $('html').removeClass('no-js');
+
 });
