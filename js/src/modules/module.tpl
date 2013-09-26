@@ -1,6 +1,6 @@
 var <%=name%> = (function(){
 
-	var defaults: {
+	var defaults = {
 
 	};
 
@@ -9,7 +9,7 @@ var <%=name%> = (function(){
 	}
 
 	return {
-		init: init;
-	}
+		init: init
+	};
 
 })();
