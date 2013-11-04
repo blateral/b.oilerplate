@@ -49,3 +49,7 @@ webapp/t3lib
 # NPM #
 #########
 node_modules
+
+# Grunt #
+#########
+dist
