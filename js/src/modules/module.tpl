@@ -1,15 +1,15 @@
 var <%=name%> = (function(){
 
-	var defaults = {
+    var defaults = {
 
-	};
+    };
 
-	function init(){
+    function init(){
 
-	}
+    }
 
-	return {
-		init: init
-	};
+    return {
+        init: init
+    };
 
 })();
