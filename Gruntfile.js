@@ -7,6 +7,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.initConfig({
 
@@ -64,6 +65,10 @@ module.exports = function(grunt) {
                     'js/dist/app.js': 'js/dist/app.js'
                 }
             }
+        },
+
+        connect: {
+            uses_defaults: {}
         },
 
         watch: {
@@ -126,5 +131,6 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
-    grunt.registerTask('init', ['concat', 'sass', 'autoprefixer']);
+    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer']);
+    grunt.registerTask('server', ['connect', 'watch']);
 };
