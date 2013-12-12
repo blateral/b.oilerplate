@@ -132,7 +132,7 @@ module.exports = function(grunt) {
                 options: {
                     livereload: true
                 }
-            }
+            },
 
             html: {
                 files: '<%= settings.html.files %>',
