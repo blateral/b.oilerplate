@@ -18,18 +18,15 @@
     }
 }());
 
-function loadTpl(url) {
-    var _data = "";
-
-    $.ajax({
-        async: false,
-        url: url,
-        success: function(data) {
-            _data = data;
-        }
-    });
-
-    return _data;
+/**
+ * A little template parser
+ * http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/
+ * Usage: template("Hello {who}!", { who: "JavaScript" });
+ */
+function template(s, d) {
+    for(var p in d)
+       s=s.replace(new RegExp('{'+p+'}','g'), d[p]);
+     return s;
 }
 
 /****************************************
