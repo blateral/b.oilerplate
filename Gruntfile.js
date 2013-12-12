@@ -11,7 +11,9 @@ module.exports = function(grunt) {
             css: {
                 scssMain: 'css/src/main.scss',
                 scss: 'css/src/**/*.scss',
-                dist: 'css/dist/main.css'
+                dist: 'css/dist/main.css',
+                assetsSrc: 'css/src/assets/**/*',
+                assetsDist: 'css/dist/assets/',
             },
 
             js: {
@@ -88,6 +90,15 @@ module.exports = function(grunt) {
             }
         },
 
+        copy: {
+            cssAssetsDist: {
+                expand: true, 
+                flatten: true, 
+                src: '<%= settings.css.assetsSrc %>', 
+                dest: '<%= settings.css.assetsDist %>'
+            }
+        },
+
         connect: {
             uses_defaults: {}
         },
@@ -108,12 +119,20 @@ module.exports = function(grunt) {
             },
 
             scss: {
-                files: 'c<%= settings.css.scss %>',
+                files: '<%= settings.css.scss %>',
                 tasks: ['sass', 'autoprefixer'],
                 options: {
                     livereload: true
                 }
             },
+
+            assets: {
+                files: '<%= settings.css.assetsSrc %>',
+                tasks: 'copy:cssAssetsDist',
+                options: {
+                    livereload: true
+                }
+            }
 
             html: {
                 files: '<%= settings.html.files %>',
@@ -152,6 +171,6 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
-    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer']);
+    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy:cssAssetsDist']);
     grunt.registerTask('server', ['connect', 'watch']);
 };
