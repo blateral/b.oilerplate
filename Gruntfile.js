@@ -1,20 +1,39 @@
 module.exports = function(grunt) {
 
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-contrib-connect');
+    // Load all grunt tasks
+    require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
+
+        pkg: grunt.file.readJSON('package.json'),
+
+        settings: {
+            css: {
+                scssMain: 'css/src/main.scss',
+                scss: 'css/src/**/*.scss',
+                dist: 'css/dist/main.css'
+            },
+
+            js: {
+                srcAll: 'js/src/**/*.js',
+                modules: 'js/src/modules/*.js',
+                src: 'js/src/*.js',
+                distMain: 'js/dist/main.js',
+                distLibs: 'js/dist/libs.js',
+                distAll: 'js/dist/<%=pkg.name%>.js'
+            },
+
+            html: {
+                files: [
+                    'index.html'
+                ]
+            }
+        },
 
         sass: {
             all: {
                 files: {
-                    'css/dist/main.css': 'css/src/main.scss',
+                    '<%= settings.css.dist %>': '<%= settings.css.scssMain %>',
                 }
             }
         },
@@ -22,7 +41,7 @@ module.exports = function(grunt) {
         autoprefixer: {
             dist: {
                 files: {
-                    'css/dist/main.css': 'css/dist/main.css'
+                    '<%= settings.css.dist %>': '<%= settings.css.dist %>'
                 }
             }
         },
@@ -30,7 +49,7 @@ module.exports = function(grunt) {
         cssmin: {
             minify: {
                 files: {
-                    'css/dist/main.css': 'css/dist/main.css'
+                    '<%= settings.css.dist %>': '<%= settings.css.dist %>'
                 }
             }
         },
@@ -38,31 +57,33 @@ module.exports = function(grunt) {
         jshint: {
             files: [
                 'Gruntfile.js',
-                'js/src/**/*.js'
+                '<%= settings.js.srcAll %>'
             ]
         },
 
         concat: {
             js: {
-                src: ['js/src/modules/*.js', 'js/src/*.js'],
-                dest: 'js/dist/main.js'
+                src: ['<%= settings.js.modules %>', '<%= settings.js.src %>'],
+                dest: '<%= settings.js.distMain %>'
             },
 
             vendor: {
-                src: ['js/vendor/**/*.js'],
-                dest: 'js/dist/libs.js'
+                src: [
+                    'js/vendor/lib1/*.js'
+                ],
+                dest: '<%= settings.js.distLibs %>'
             },
 
             all: {
-                src: ['js/dist/libs.js', 'js/dist/main.js'],
-                dest: 'js/dist/app.js'
+                src: ['<%= settings.js.distLibs %>', '<%= settings.js.distMain %>'],
+                dest: '<%= settings.js.distAll %>'
             }
         },
 
         uglify: {
             all: {
                 files: {
-                    'js/dist/app.js': 'js/dist/app.js'
+                    '<%= settings.js.distAll %>': '<%= settings.js.distAll %>'
                 }
             }
         },
@@ -87,7 +108,7 @@ module.exports = function(grunt) {
             },
 
             scss: {
-                files: 'css/src/**/*.scss',
+                files: 'c<%= settings.css.scss %>',
                 tasks: ['sass', 'autoprefixer'],
                 options: {
                     livereload: true
@@ -95,7 +116,7 @@ module.exports = function(grunt) {
             },
 
             html: {
-                files: 'index.html',
+                files: '<%= settings.html.files %>',
                 options: {
                     livereload: true
                 }
