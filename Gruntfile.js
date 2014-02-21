@@ -100,7 +100,13 @@ module.exports = function(grunt) {
         },
 
         connect: {
-            uses_defaults: {}
+            server: {
+                options: {
+                    keepalive: true,
+                    hostname: '*',
+                    open: true
+                }
+            }
         },
 
         watch: {
