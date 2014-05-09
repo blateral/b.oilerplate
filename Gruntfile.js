@@ -9,26 +9,26 @@ module.exports = function(grunt) {
 
         settings: {
             css: {
-                scssMain: 'css/src/main.scss',
-                scss: 'css/src/**/*.scss',
-                dist: 'css/dist/main.css',
-                assetsSrc: 'css/src/assets/**/*',
-                assetsDist: 'css/dist/assets/',
+                scssMain: 'src/css/main.scss',
+                scssAll: 'css/src/**/*.scss',
+                dist: 'dist/css/main.css',
+                distMin: 'dist/css/main.min.css',
+                assetsSrc: 'src/css/assets/**/*',
+                assetsDist: 'dist/css/assets/',
             },
 
             js: {
-                srcAll: 'js/src/**/*.js',
-                modules: 'js/src/modules/*.js',
-                src: 'js/src/*.js',
-                distMain: 'js/dist/main.js',
-                distLibs: 'js/dist/libs.js',
-                distAll: 'js/dist/<%=pkg.name%>.js'
+                modules: 'src/js/modules/*.js',
+                main: 'src/js/main.js',
+                distMain: 'dist/js/main.tmp.js',
+                distLibs: 'dist/js/libs.tmp.js',
+                distAll: 'dist/js/all.js',
+                distAllMin: 'dist/js/all.min.js'
             },
 
             html: {
-                files: [
-                    'index.html'
-                ]
+                all: 'src/html/**/*.html',
+                allDist: 'dist'
             }
         },
 
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         cssmin: {
             minify: {
                 files: {
-                    '<%= settings.css.dist %>': '<%= settings.css.dist %>'
+                    '<%= settings.css.distMin %>': '<%= settings.css.dist %>'
                 }
             }
         },
@@ -59,13 +59,14 @@ module.exports = function(grunt) {
         jshint: {
             files: [
                 'Gruntfile.js',
-                '<%= settings.js.srcAll %>'
+                '<%= settings.js.modules %>',
+                '<%= settings.js.main %>'
             ]
         },
 
         concat: {
             js: {
-                src: ['<%= settings.js.modules %>', '<%= settings.js.src %>'],
+                src: ['<%= settings.js.modules %>', '<%= settings.js.main %>'],
                 dest: '<%= settings.js.distMain %>'
             },
 
@@ -85,7 +86,7 @@ module.exports = function(grunt) {
         uglify: {
             all: {
                 files: {
-                    '<%= settings.js.distAll %>': '<%= settings.js.distAll %>'
+                    '<%= settings.js.distAllMin %>': '<%= settings.js.distAll %>'
                 }
             }
         },
@@ -148,32 +149,6 @@ module.exports = function(grunt) {
             }
         }
 
-    });
-
-    function createJsModule(data) {
-        var tpl = grunt.file.read('js/src/modules/module.tpl'),
-            out = grunt.template.process(tpl, {data: data});
-
-        grunt.file.write('js/src/modules/' + data.name + '.js', out);
-
-        grunt.log.writeln('Created js/src/modules/' + data.name + '.js');
-    }
-
-
-    grunt.registerTask('js-module', 'Creating module for js', function(moduleName){
-        var data;
-
-        if (arguments.length === 0) {
-            data = {
-                name: 'MyModule'
-            };
-        } else {
-            data = {
-                name: moduleName
-            };
-        }
-
-        createJsModule(data);
     });
 
     grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
