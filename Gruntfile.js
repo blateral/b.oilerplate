@@ -157,6 +157,10 @@ module.exports = function(grunt) {
             }
         },
 
+        clean: {
+            dist: ['dist']
+        },
+
         watch: {
 
             js: {
@@ -207,7 +211,7 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy']);
+    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy']);
     grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy']);
     grunt.registerTask('server', ['connect', 'watch']);
 };
