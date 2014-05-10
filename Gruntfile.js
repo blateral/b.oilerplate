@@ -8,27 +8,45 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         settings: {
+
+            paths: {
+                css: {
+                    src: 'src/css',
+                    dist: 'dist/css'
+                },
+
+                js: {
+                    src: 'src/js',
+                    dist: 'dist/js'
+                },
+
+                html:{
+                    src: 'src/html',
+                    dist: 'dist'
+                }
+            },
+
             css: {
-                scssMain: 'src/css/main.scss',
-                scssAll: 'css/src/**/*.scss',
-                dist: 'dist/css/main.css',
-                distMin: 'dist/css/main.min.css',
-                assetsSrc: 'src/css/assets/**/*',
-                assetsDist: 'dist/css/assets/',
+                scssMain: '<%=settings.paths.css.src%>/main.scss',
+                scssAll: '<%=settings.paths.css.src%>/**/*.scss',
+                dist: '<%=settings.paths.css.dist%>/main.css',
+                distMin: '<%=settings.paths.css.dist%>/main.min.css',
+                assetsSrc: '<%=settings.paths.css.src%>/assets/**/*',
+                assetsDist: '<%=settings.paths.css.dist%>/assets/',
             },
 
             js: {
-                modules: 'src/js/modules/*.js',
-                main: 'src/js/main.js',
-                distMain: 'dist/js/main.tmp.js',
-                distLibs: 'dist/js/libs.tmp.js',
-                distAll: 'dist/js/all.js',
-                distAllMin: 'dist/js/all.min.js'
+                modules: '<%=settings.paths.js.src%>/modules/*.js',
+                main: '<%=settings.paths.js.src%>/main.js',
+                distMain: '<%=settings.paths.js.dist%>/main.tmp.js',
+                distLibs: '<%=settings.paths.js.dist%>/libs.tmp.js',
+                distAll: '<%=settings.paths.js.dist%>/all.js',
+                distAllMin: '<%=settings.paths.js.dist%>/all.min.js'
             },
 
             html: {
-                all: 'src/html/**/*.html',
-                allDist: 'dist'
+                all: '<%=settings.paths.html.src%>/**/*.html',
+                allDist: '<%=settings.paths.html.dist%>'
             }
         },
 
@@ -93,9 +111,9 @@ module.exports = function(grunt) {
 
         copy: {
             cssAssetsDist: {
-                expand: true, 
-                flatten: true, 
-                src: '<%= settings.css.assetsSrc %>', 
+                expand: true,
+                flatten: true,
+                src: '<%= settings.css.assetsSrc %>',
                 dest: '<%= settings.css.assetsDist %>'
             }
         },
