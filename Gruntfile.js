@@ -20,9 +20,14 @@ module.exports = function(grunt) {
                     dist: 'dist/js'
                 },
 
-                html:{
+                html: {
                     src: 'src/html',
                     dist: 'dist'
+                },
+
+                media: {
+                    src: 'src/media',
+                    dist: 'dist/media'
                 }
             },
 
@@ -47,6 +52,11 @@ module.exports = function(grunt) {
             html: {
                 all: '<%=settings.paths.html.src%>/**/*.html',
                 allDist: '<%=settings.paths.html.dist%>'
+            },
+
+            media: {
+                src: '<%=settings.paths.media.src%>/**/*',
+                dist: '<%=settings.paths.media.dist%>'
             }
         },
 
@@ -68,6 +78,9 @@ module.exports = function(grunt) {
 
         cssmin: {
             minify: {
+                options: {
+                    banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
+                },
                 files: {
                     '<%= settings.css.distMin %>': '<%= settings.css.dist %>'
                 }
@@ -103,6 +116,9 @@ module.exports = function(grunt) {
 
         uglify: {
             all: {
+                options: {
+                    banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
+                },
                 files: {
                     '<%= settings.js.distAllMin %>': '<%= settings.js.distAll %>'
                 }
@@ -110,9 +126,18 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            cssAssetsDist: {
+            media: {
                 expand: true,
                 flatten: true,
+                filter: 'isFile',
+                src: '<%= settings.media.src %>',
+                dest: '<%= settings.media.dist %>'
+            },
+
+            layoutMedia: {
+                expand: true,
+                flatten: true,
+                filter: 'isFile',
                 src: '<%= settings.css.assetsSrc %>',
                 dest: '<%= settings.css.assetsDist %>'
             }
@@ -121,9 +146,7 @@ module.exports = function(grunt) {
         connect: {
             server: {
                 options: {
-                    keepalive: true,
-                    hostname: '*',
-                    open: true
+                    hostname: '*'
                 }
             }
         },
@@ -144,7 +167,7 @@ module.exports = function(grunt) {
             },
 
             scss: {
-                files: '<%= settings.css.scss %>',
+                files: '<%= settings.css.scssAll %>',
                 tasks: ['sass', 'autoprefixer'],
                 options: {
                     livereload: true
@@ -160,7 +183,7 @@ module.exports = function(grunt) {
             },
 
             html: {
-                files: '<%= settings.html.files %>',
+                files: '<%= settings.html.all %>',
                 options: {
                     livereload: true
                 }
