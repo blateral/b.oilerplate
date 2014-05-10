@@ -128,25 +128,31 @@ module.exports = function(grunt) {
         copy: {
             media: {
                 expand: true,
-                flatten: true,
-                filter: 'isFile',
-                src: '<%= settings.media.src %>',
+                cwd: '<%=settings.paths.media.src%>/',
+                src: '**',
                 dest: '<%= settings.media.dist %>'
             },
 
             layoutMedia: {
                 expand: true,
-                flatten: true,
-                filter: 'isFile',
-                src: '<%= settings.css.assetsSrc %>',
+                cwd: '<%=settings.paths.css.src%>/assets/',
+                src: '**',
                 dest: '<%= settings.css.assetsDist %>'
+            },
+
+            html: {
+                expand: true,
+                cwd: '<%=settings.paths.html.src%>/',
+                src: '**',
+                dest: '<%= settings.paths.html.dist %>'
             }
         },
 
         connect: {
             server: {
                 options: {
-                    hostname: '*'
+                    hostname: '*',
+                    base: 'dist'
                 }
             }
         },
@@ -155,7 +161,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['jshint', 'concat:js', 'concat:all'],
+                tasks: ['newer:jshint', 'newer:concat:js', 'newer:concat:all'],
                 options: {
                     livereload: true
                 }
@@ -163,12 +169,12 @@ module.exports = function(grunt) {
 
             vendor: {
                 files: '<%= concat.vendor.src %>',
-                tasks: ['concat:vendor', 'concat:all']
+                tasks: ['newer:concat:vendor', 'newer:concat:all']
             },
 
             scss: {
                 files: '<%= settings.css.scssAll %>',
-                tasks: ['sass', 'autoprefixer'],
+                tasks: ['newer:sass', 'newer:autoprefixer'],
                 options: {
                     livereload: true
                 }
@@ -176,7 +182,15 @@ module.exports = function(grunt) {
 
             assets: {
                 files: '<%= settings.css.assetsSrc %>',
-                tasks: 'copy:cssAssetsDist',
+                tasks: 'newer:copy:layoutMedia',
+                options: {
+                    livereload: true
+                }
+            },
+
+            media: {
+                files: '<%= settings.media.src %>',
+                tasks: 'newer:copy:media',
                 options: {
                     livereload: true
                 }
@@ -184,6 +198,7 @@ module.exports = function(grunt) {
 
             html: {
                 files: '<%= settings.html.all %>',
+                tasks: 'newer:copy:html',
                 options: {
                     livereload: true
                 }
@@ -192,7 +207,7 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
-    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy:cssAssetsDist']);
+    grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy']);
+    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy']);
     grunt.registerTask('server', ['connect', 'watch']);
 };
