@@ -29,12 +29,17 @@ function template(s, d) {
      return s;
 }
 
+function main() {
+    // Namespace
+    var app = app || {};
+
+    // Tell that we have javascript running
+    $('html').removeClass('no-js');
+}
+
 /****************************************
     jQuery: Dom ready
 /****************************************/
 $(document).ready(function(){
-
-    // Tell that we have javascript running
-    $('html').removeClass('no-js');
-
+    main();
 });

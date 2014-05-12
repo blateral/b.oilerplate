@@ -8,27 +8,55 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         settings: {
+
+            paths: {
+                css: {
+                    src: 'src/css',
+                    dist: 'dist/css'
+                },
+
+                js: {
+                    src: 'src/js',
+                    dist: 'dist/js'
+                },
+
+                html: {
+                    src: 'src/html',
+                    dist: 'dist'
+                },
+
+                media: {
+                    src: 'src/media',
+                    dist: 'dist/media'
+                }
+            },
+
             css: {
-                scssMain: 'css/src/main.scss',
-                scss: 'css/src/**/*.scss',
-                dist: 'css/dist/main.css',
-                assetsSrc: 'css/src/assets/**/*',
-                assetsDist: 'css/dist/assets/',
+                scssMain: '<%=settings.paths.css.src%>/main.scss',
+                scssAll: '<%=settings.paths.css.src%>/**/*.scss',
+                dist: '<%=settings.paths.css.dist%>/main.css',
+                distMin: '<%=settings.paths.css.dist%>/main.min.css',
+                assetsSrc: '<%=settings.paths.css.src%>/assets/**/*',
+                assetsDist: '<%=settings.paths.css.dist%>/assets/',
             },
 
             js: {
-                srcAll: 'js/src/**/*.js',
-                modules: 'js/src/modules/*.js',
-                src: 'js/src/*.js',
-                distMain: 'js/dist/main.js',
-                distLibs: 'js/dist/libs.js',
-                distAll: 'js/dist/<%=pkg.name%>.js'
+                modules: '<%=settings.paths.js.src%>/modules/*.js',
+                main: '<%=settings.paths.js.src%>/main.js',
+                distMain: '<%=settings.paths.js.dist%>/main.tmp.js',
+                distLibs: '<%=settings.paths.js.dist%>/libs.tmp.js',
+                distAll: '<%=settings.paths.js.dist%>/all.js',
+                distAllMin: '<%=settings.paths.js.dist%>/all.min.js'
             },
 
             html: {
-                files: [
-                    'index.html'
-                ]
+                all: '<%=settings.paths.html.src%>/**/*.html',
+                allDist: '<%=settings.paths.html.dist%>'
+            },
+
+            media: {
+                src: '<%=settings.paths.media.src%>/**/*',
+                dist: '<%=settings.paths.media.dist%>'
             }
         },
 
@@ -49,7 +77,10 @@ module.exports = function(grunt) {
         },
 
         cssmin: {
-            minify: {
+            css: {
+                options: {
+                    banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
+                },
                 files: {
                     '<%= settings.css.dist %>': '<%= settings.css.dist %>'
                 }
@@ -59,13 +90,14 @@ module.exports = function(grunt) {
         jshint: {
             files: [
                 'Gruntfile.js',
-                '<%= settings.js.srcAll %>'
+                '<%= settings.js.modules %>',
+                '<%= settings.js.main %>'
             ]
         },
 
         concat: {
             js: {
-                src: ['<%= settings.js.modules %>', '<%= settings.js.src %>'],
+                src: ['<%= settings.js.modules %>', '<%= settings.js.main %>'],
                 dest: '<%= settings.js.distMain %>'
             },
 
@@ -83,7 +115,10 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            all: {
+            js: {
+                options: {
+                    banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
+                },
                 files: {
                     '<%= settings.js.distAll %>': '<%= settings.js.distAll %>'
                 }
@@ -91,23 +126,48 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            cssAssetsDist: {
-                expand: true, 
-                flatten: true, 
-                src: '<%= settings.css.assetsSrc %>', 
+            media: {
+                expand: true,
+                cwd: '<%=settings.paths.media.src%>/',
+                src: '**',
+                dest: '<%= settings.media.dist %>'
+            },
+
+            layoutMedia: {
+                expand: true,
+                cwd: '<%=settings.paths.css.src%>/assets/',
+                src: '**',
                 dest: '<%= settings.css.assetsDist %>'
+            },
+
+            html: {
+                expand: true,
+                cwd: '<%=settings.paths.html.src%>/',
+                src: '**',
+                dest: '<%= settings.paths.html.dist %>'
             }
         },
 
         connect: {
             server: {
                 options: {
-                    keepalive: true,
                     hostname: '*',
-                    open: true
+                    base: 'dist'
                 }
             }
         },
+
+        clean: {
+            dist: ['dist']
+        },
+
+        /*sprite:{
+            all: {
+                src: 'path/to/your/sprites/*.png',
+                destImg: 'destination/of/spritesheet.png',
+                destCSS: 'destination/of/sprites.scss'
+            }
+        }*/
 
         watch: {
 
@@ -125,7 +185,7 @@ module.exports = function(grunt) {
             },
 
             scss: {
-                files: '<%= settings.css.scss %>',
+                files: '<%= settings.css.scssAll %>',
                 tasks: ['sass', 'autoprefixer'],
                 options: {
                     livereload: true
@@ -134,14 +194,23 @@ module.exports = function(grunt) {
 
             assets: {
                 files: '<%= settings.css.assetsSrc %>',
-                tasks: 'copy:cssAssetsDist',
+                tasks: 'copy:layoutMedia',
+                options: {
+                    livereload: true
+                }
+            },
+
+            media: {
+                files: '<%= settings.media.src %>',
+                tasks: 'copy:media',
                 options: {
                     livereload: true
                 }
             },
 
             html: {
-                files: '<%= settings.html.files %>',
+                files: '<%= settings.html.all %>',
+                tasks: 'copy:html',
                 options: {
                     livereload: true
                 }
@@ -150,33 +219,7 @@ module.exports = function(grunt) {
 
     });
 
-    function createJsModule(data) {
-        var tpl = grunt.file.read('js/src/modules/module.tpl'),
-            out = grunt.template.process(tpl, {data: data});
-
-        grunt.file.write('js/src/modules/' + data.name + '.js', out);
-
-        grunt.log.writeln('Created js/src/modules/' + data.name + '.js');
-    }
-
-
-    grunt.registerTask('js-module', 'Creating module for js', function(moduleName){
-        var data;
-
-        if (arguments.length === 0) {
-            data = {
-                name: 'MyModule'
-            };
-        } else {
-            data = {
-                name: moduleName
-            };
-        }
-
-        createJsModule(data);
-    });
-
-    grunt.registerTask('build', ['jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin']);
-    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy:cssAssetsDist']);
+    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy']);
+    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy']);
     grunt.registerTask('server', ['connect', 'watch']);
 };

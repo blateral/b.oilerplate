@@ -1,0 +1,22 @@
+// Colors definitions
+$colorGray: #ccc;
+$colorRed: #ff0000;
+
+// Color mappings
+$colorLinkHover: $colorRed;
+
+// Fonts
+$fontPrimary: 'Raleway', sans-serif;
+$fontSecondary: 'Lora', serif;
+
+// Breakpoints
+$breakpoints: (
+    // 'tiny':   ( max-width:  767px ),
+    // 'small':  ( min-width:  768px ),
+    // 'medium': ( min-width:  992px ),
+    // 'large':  ( min-width: 1200px ),
+    // 'custom': ( min-height:  40em )
+);
+
+// Legacy
+$old-ie: false !default;
