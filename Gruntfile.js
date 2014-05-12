@@ -161,6 +161,14 @@ module.exports = function(grunt) {
             dist: ['dist']
         },
 
+        /*sprite:{
+            all: {
+                src: 'path/to/your/sprites/*.png',
+                destImg: 'destination/of/spritesheet.png',
+                destCSS: 'destination/of/sprites.scss'
+            }
+        }*/
+
         watch: {
 
             js: {

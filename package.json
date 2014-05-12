@@ -13,8 +13,8 @@
     "grunt": "^0.4.4",
     "grunt-contrib-connect": "^0.7.1",
     "grunt-contrib-jshint": "^0.10.0",
-    "spritesmith": "^0.19.1",
     "grunt-newer": "^0.7.0",
-    "grunt-contrib-clean": "~0.5.0"
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-spritesmith": "^1.26.0"
   }
 }
