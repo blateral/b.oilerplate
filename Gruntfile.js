@@ -173,7 +173,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['newer:jshint', 'newer:concat:js', 'newer:concat:all'],
+                tasks: ['jshint', 'concat:js', 'concat:all'],
                 options: {
                     livereload: true
                 }
@@ -181,12 +181,12 @@ module.exports = function(grunt) {
 
             vendor: {
                 files: '<%= concat.vendor.src %>',
-                tasks: ['newer:concat:vendor', 'newer:concat:all']
+                tasks: ['concat:vendor', 'concat:all']
             },
 
             scss: {
                 files: '<%= settings.css.scssAll %>',
-                tasks: ['newer:sass', 'newer:autoprefixer'],
+                tasks: ['sass', 'autoprefixer'],
                 options: {
                     livereload: true
                 }
@@ -194,7 +194,7 @@ module.exports = function(grunt) {
 
             assets: {
                 files: '<%= settings.css.assetsSrc %>',
-                tasks: 'newer:copy:layoutMedia',
+                tasks: 'copy:layoutMedia',
                 options: {
                     livereload: true
                 }
@@ -202,7 +202,7 @@ module.exports = function(grunt) {
 
             media: {
                 files: '<%= settings.media.src %>',
-                tasks: 'newer:copy:media',
+                tasks: 'copy:media',
                 options: {
                     livereload: true
                 }
@@ -210,7 +210,7 @@ module.exports = function(grunt) {
 
             html: {
                 files: '<%= settings.html.all %>',
-                tasks: 'newer:copy:html',
+                tasks: 'copy:html',
                 options: {
                     livereload: true
                 }
