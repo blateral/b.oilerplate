@@ -77,12 +77,12 @@ module.exports = function(grunt) {
         },
 
         cssmin: {
-            minify: {
+            css: {
                 options: {
                     banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
                 },
                 files: {
-                    '<%= settings.css.distMin %>': '<%= settings.css.dist %>'
+                    '<%= settings.css.dist %>': '<%= settings.css.dist %>'
                 }
             }
         },
@@ -115,12 +115,12 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            all: {
+            js: {
                 options: {
                     banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
                 },
                 files: {
-                    '<%= settings.js.distAllMin %>': '<%= settings.js.distAll %>'
+                    '<%= settings.js.distAll %>': '<%= settings.js.distAll %>'
                 }
             }
         },
@@ -159,12 +159,6 @@ module.exports = function(grunt) {
 
         clean: {
             dist: ['dist']
-        },
-
-        useminPrepare: {
-            html: {
-                src: 'src/html/index.html'
-            }
         },
 
         watch: {
@@ -217,7 +211,7 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('build', ['useminPrepare', 'clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'usemin']);
+    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy']);
     grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy']);
     grunt.registerTask('server', ['connect', 'watch']);
 };
