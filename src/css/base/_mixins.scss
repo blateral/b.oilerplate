@@ -27,9 +27,9 @@
   @each $o in top right bottom left {
         $i: index($args, $o);
  
-    @if $i and $i + 1 &lt;= length($args) and type-of(nth($args, $i + 1)) == number  {
-          #{$o}: nth($args, $i + 1);
-    }
+        @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number  {
+              #{$o}: nth($args, $i + 1);
+        }
   }
  
   position: $position;
