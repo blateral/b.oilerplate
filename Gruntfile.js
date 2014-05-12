@@ -161,6 +161,12 @@ module.exports = function(grunt) {
             dist: ['dist']
         },
 
+        useminPrepare: {
+            html: {
+                src: 'src/html/index.html'
+            }
+        },
+
         watch: {
 
             js: {
@@ -211,7 +217,7 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy']);
+    grunt.registerTask('build', ['useminPrepare', 'clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'usemin']);
     grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy']);
     grunt.registerTask('server', ['connect', 'watch']);
 };
