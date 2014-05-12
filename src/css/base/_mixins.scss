@@ -17,3 +17,49 @@
     font-size: $sizeValue + px;
     font-size: $sizeValue / 16 + rem;
 }
+
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+@mixin position($position, $args) {
+  @each $o in top right bottom left {
+        $i: index($args, $o);
+ 
+    @if $i and $i + 1 &lt;= length($args) and type-of(nth($args, $i + 1)) == number  {
+          #{$o}: nth($args, $i + 1);
+    }
+  }
+ 
+  position: $position;
+}
+ 
+@mixin absolute($args) {
+    @include position("absolute", $args);
+}
+ 
+@mixin fixed($args) {
+    @include position("fixed", $args);
+}
+ 
+@mixin relative($args) {
+    @include position("relative", $args);
+}
+
+@mixin bp($name) {
+    @if $old-ie {
+        @content;
+    }
+
+    @else {
+        @if map-has-key($breakpoints, $name) {
+            @media #{inspect(map-get($breakpoints, $name))} {
+                @content;
+            }
+        }
+        @else {
+            @warn "Couldn't find a breakpoint named `#{$name}`.";
+        }
+    }
+}
