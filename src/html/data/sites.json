@@ -1,0 +1,14 @@
+{
+    "about": {
+        "title": "Über uns",
+        "href": "standard.html"
+    },
+    "services": {
+        "title": "Services",
+        "href": "services.html"
+    },
+    "ref": {
+        "title": "Referenzen",
+        "href": "references.html"
+    }
+}

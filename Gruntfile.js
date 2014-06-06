@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
     // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
+    grunt.loadNpmTasks('assemble');
 
     grunt.initConfig({
 
@@ -51,6 +52,7 @@ module.exports = function(grunt) {
 
             html: {
                 all: '<%=settings.paths.html.src%>/**/*.html',
+                allHbs: '<%=settings.paths.html.src%>/**/*.hbs',
                 allDist: '<%=settings.paths.html.dist%>'
             },
 
@@ -138,13 +140,6 @@ module.exports = function(grunt) {
                 cwd: '<%=settings.paths.css.src%>/assets/',
                 src: '**',
                 dest: '<%= settings.css.assetsDist %>'
-            },
-
-            html: {
-                expand: true,
-                cwd: '<%=settings.paths.html.src%>/',
-                src: '**',
-                dest: '<%= settings.paths.html.dist %>'
             }
         },
 
@@ -167,7 +162,33 @@ module.exports = function(grunt) {
                 destImg: 'destination/of/spritesheet.png',
                 destCSS: 'destination/of/sprites.scss'
             }
-        }*/
+        },*/
+
+        assemble: {
+            options: {
+                flatten: true,
+                layout: '<%=settings.paths.html.src%>/layout/default.hbs',
+                partials: '<%=settings.paths.html.src%>/includes/*.hbs',
+                helpers: '<%=settings.paths.html.src%>/helper/*.js',
+                data: '<%=settings.paths.html.src%>/data/*.json'
+            },
+
+            dev: {
+                src: '<%=settings.paths.html.src%>/*.hbs',
+                dest: 'dist/',
+                options: {
+                    usemin: false
+                }
+            },
+
+            build: {
+                src: '<%=settings.paths.html.src%>/*.hbs',
+                dest: 'dist/',
+                options: {
+                    usemin: true
+                }
+            }
+        },
 
         watch: {
 
@@ -209,17 +230,18 @@ module.exports = function(grunt) {
             },
 
             html: {
-                files: '<%= settings.html.all %>',
-                tasks: 'copy:html',
+                files: '<%= settings.html.allHbs %>',
+                tasks: 'assemble:dev',
                 options: {
                     livereload: true
                 }
-            }
+            },
         }
 
     });
 
-    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy']);
-    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy']);
+    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', /*'sprite', */'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build']);
+    grunt.registerTask('compile', ['concat', /*'sprite', */'sass', 'autoprefixer', 'copy', 'assemble:dev']);
     grunt.registerTask('server', ['connect', 'watch']);
+    grunt.registerTask('default', ['server']);
 };
