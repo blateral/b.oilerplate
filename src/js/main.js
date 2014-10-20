@@ -29,17 +29,9 @@ function template(s, d) {
      return s;
 }
 
-function main() {
-    // Namespace
-    var app = app || {};
+(function ($) { 
+    
+    // initialize your modules here
+    
+})(jQuery);
 
-    // Tell that we have javascript running
-    $('html').removeClass('no-js');
-}
-
-/****************************************
-    jQuery: Dom ready
-/****************************************/
-$(document).ready(function(){
-    main();
-});
