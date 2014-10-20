@@ -1,9 +1,9 @@
 {
   "name": "launcher",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/futurekind/launcher",
   "authors": [
-    "Fabian Trinler <fabian.trinler@blateral.com>"
+    "Fabian Trinler <f.trinler@gmail.com>"
   ],
   "license": "",
   "private": true,

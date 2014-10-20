@@ -53,3 +53,7 @@ node_modules
 # Grunt #
 #########
 dist
+
+# Bower #
+#########
+src/vendor

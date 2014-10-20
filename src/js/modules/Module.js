@@ -1,4 +1,9 @@
 var app = app || {};
-app.Module = function Module() {
-    // body...
-};
+
+(function ($) {
+    
+    app.Module = function Module() {
+        var foo = 'bar';
+    };
+
+})(jQuery);

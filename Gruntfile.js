@@ -7,139 +7,96 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
-
-        settings: {
-
-            paths: {
-                css: {
-                    src: 'src/css',
-                    dist: 'dist/css'
-                },
-
-                js: {
-                    src: 'src/js',
-                    dist: 'dist/js'
-                },
-
-                html: {
-                    src: 'src/html',
-                    dist: 'dist'
-                },
-
-                media: {
-                    src: 'src/media',
-                    dist: 'dist/media'
-                }
-            },
-
-            css: {
-                scssMain: '<%=settings.paths.css.src%>/main.scss',
-                scssAll: '<%=settings.paths.css.src%>/**/*.scss',
-                dist: '<%=settings.paths.css.dist%>/main.css',
-                distMin: '<%=settings.paths.css.dist%>/main.min.css',
-                assetsSrc: '<%=settings.paths.css.src%>/assets/**/*',
-                assetsDist: '<%=settings.paths.css.dist%>/assets/',
-            },
-
-            js: {
-                modules: '<%=settings.paths.js.src%>/modules/*.js',
-                main: '<%=settings.paths.js.src%>/main.js',
-                distMain: '<%=settings.paths.js.dist%>/main.tmp.js',
-                distLibs: '<%=settings.paths.js.dist%>/libs.tmp.js',
-                distAll: '<%=settings.paths.js.dist%>/all.js',
-                distAllMin: '<%=settings.paths.js.dist%>/all.min.js'
-            },
-
-            html: {
-                all: '<%=settings.paths.html.src%>/**/*.html',
-                allHbs: '<%=settings.paths.html.src%>/**/*.hbs',
-                allDist: '<%=settings.paths.html.dist%>'
-            },
-
-            media: {
-                src: '<%=settings.paths.media.src%>/**/*',
-                dist: '<%=settings.paths.media.dist%>'
-            }
-        },
+        settings: grunt.file.readJSON('settings.json'),
+        banner: [
+            '/*!',
+            '<%= pkg.name %>',
+            '@version <%= pkg.version %>',
+            '@date <%= grunt.template.today("yyyy-mm-dd, HH:MM") %>',
+            '*/'
+        ].join("\n"),
 
         sass: {
-            all: {
+            options: {
+                sourceMap: true
+            },
+            main: {
                 files: {
-                    '<%= settings.css.dist %>': '<%= settings.css.scssMain %>',
+                    '<%= settings.css.main.dist %>': '<%= settings.css.main.src %>',
                 }
             }
         },
 
         autoprefixer: {
-            dist: {
-                files: {
-                    '<%= settings.css.dist %>': '<%= settings.css.dist %>'
-                }
+            all: {
+                expand: true,
+                flatten: true,
+                src: 'dist/css/*.css',
+                dest: 'dist/css'
             }
         },
 
         cssmin: {
             css: {
                 options: {
-                    banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
+                    banner: '<%= banner %>'
                 },
-                files: {
-                    '<%= settings.css.dist %>': '<%= settings.css.dist %>'
-                }
+                files: [{
+                    expand: true,
+                    cwd: 'dist/css/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'dist/css/',
+                    ext: '.min.css'
+                }]
             }
         },
 
         jshint: {
             files: [
                 'Gruntfile.js',
-                '<%= settings.js.modules %>',
-                '<%= settings.js.main %>'
+                '<%= settings.js.modules.src %>',
+                '<%= settings.js.main.src %>'
             ]
         },
 
         concat: {
-            js: {
-                src: ['<%= settings.js.modules %>', '<%= settings.js.main %>'],
-                dest: '<%= settings.js.distMain %>'
+            main: {
+                src: ['<%= settings.js.modules.src %>', '<%= settings.js.main.src %>'],
+                dest: '<%= settings.js.main.dist %>'
             },
 
             vendor: {
-                src: [
-                    'js/vendor/lib1/*.js'
-                ],
-                dest: '<%= settings.js.distLibs %>'
+                src: '<%= settings.js.vendor.src %>',
+                dest: '<%= settings.js.vendor.dist %>'
             },
 
             all: {
-                src: ['<%= settings.js.distLibs %>', '<%= settings.js.distMain %>'],
-                dest: '<%= settings.js.distAll %>'
+                src: ['<%= settings.js.vendor.dist %>', '<%= settings.js.main.dist %>'],
+                dest: '<%= settings.js.all.dist %>'
             }
         },
 
         uglify: {
             js: {
                 options: {
-                    banner: '/* <%= pkg.name %> v<%= pkg.version %> (build <%= grunt.template.today("yyyy-mm-dd") %>) */'
+                    banner: "<%= banner %>\n"
                 },
-                files: {
-                    '<%= settings.js.distAll %>': '<%= settings.js.distAll %>'
-                }
+                files: [{
+                    expand: true,
+                    cwd: 'dist/js',
+                    src: ['*.js', '!*.min.js'],
+                    dest: 'dist/js',
+                    ext: '.min.js'
+                }]
             }
         },
 
         copy: {
-            media: {
+            webroot: {
                 expand: true,
-                cwd: '<%=settings.paths.media.src%>/',
+                cwd: 'src/webroot',
                 src: '**',
-                dest: '<%= settings.media.dist %>'
-            },
-
-            layoutMedia: {
-                expand: true,
-                cwd: '<%=settings.paths.css.src%>/assets/',
-                src: '**',
-                dest: '<%= settings.css.assetsDist %>'
+                dest: 'dist'
             }
         },
 
@@ -153,28 +110,28 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            dist: ['dist']
+            dist: 'dist',
+            build: [
+                'dist/tmp',
+                'dist/css/*.map', 
+                'dist/css/*.css', 
+                '!dist/css/*.min.css', 
+                'dist/js/*.js', 
+                '!dist/js/*.min.js'
+            ]
         },
-
-        /*sprite:{
-            all: {
-                src: 'path/to/your/sprites/*.png',
-                destImg: 'destination/of/spritesheet.png',
-                destCSS: 'destination/of/sprites.scss'
-            }
-        },*/
 
         assemble: {
             options: {
                 flatten: true,
-                layout: '<%=settings.paths.html.src%>/layout/default.hbs',
-                partials: '<%=settings.paths.html.src%>/includes/*.hbs',
-                helpers: '<%=settings.paths.html.src%>/helper/*.js',
-                data: '<%=settings.paths.html.src%>/data/*.json'
+                layout: '<%= settings.html.layout.src %>',
+                partials: '<%= settings.html.includes.src %>',
+                helpers: '<%= settings.html.helper.src %>',
+                data: '<%= settings.html.data.src %>'
             },
 
             dev: {
-                src: '<%=settings.paths.html.src%>/*.hbs',
+                src: '<%= settings.html.main.src %>',
                 dest: 'dist/',
                 options: {
                     usemin: false
@@ -182,7 +139,7 @@ module.exports = function(grunt) {
             },
 
             build: {
-                src: '<%=settings.paths.html.src%>/*.hbs',
+                src: '<%= settings.html.main.src %>',
                 dest: 'dist/',
                 options: {
                     usemin: true
@@ -206,31 +163,23 @@ module.exports = function(grunt) {
             },
 
             scss: {
-                files: '<%= settings.css.scssAll %>',
+                files: '<%= settings.css.scss.src %>',
                 tasks: ['sass', 'autoprefixer'],
                 options: {
                     livereload: true
                 }
             },
 
-            assets: {
-                files: '<%= settings.css.assetsSrc %>',
-                tasks: 'copy:layoutMedia',
-                options: {
-                    livereload: true
-                }
-            },
-
-            media: {
-                files: '<%= settings.media.src %>',
-                tasks: 'copy:media',
+            webroot: {
+                files: 'src/webroot/**',
+                tasks: 'copy',
                 options: {
                     livereload: true
                 }
             },
 
             html: {
-                files: '<%= settings.html.allHbs %>',
+                files: '<%= settings.html.all.src %>',
                 tasks: 'assemble:dev',
                 options: {
                     livereload: true
@@ -240,8 +189,8 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', /*'sprite', */'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build']);
-    grunt.registerTask('compile', ['concat', /*'sprite', */'sass', 'autoprefixer', 'copy', 'assemble:dev']);
+    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build']);
+    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy', 'assemble:dev']);
     grunt.registerTask('server', ['connect', 'watch']);
-    grunt.registerTask('default', ['server']);
+    grunt.registerTask('default', ['compile' ,'server']);
 };

@@ -1,0 +1,49 @@
+{
+    "css": {
+        "scss": {
+            "src": "src/css/**/*.scss"
+        },
+        "main": {
+            "src": "src/css/main.scss",
+            "dist": "dist/css/main.css"
+        }
+    },
+
+    "js": {
+        "modules": {
+            "src": "src/js/modules/*.js"
+        },
+        "main": {
+            "src": "src/js/main.js",
+            "dist": "dist/tmp/js/main.js"
+        },
+        "vendor": {
+            "src": [],
+            "dist": "dist/tmp/js/vendor.js"
+        },
+        "all": {
+            "dist": "dist/js/all.js"
+        }
+    },
+
+    "html": {
+        "all": {
+            "src": "src/html/**/*.hbs"
+        },
+        "main": {
+            "src": "src/html/*.hbs"
+        },
+        "layout": {
+            "src": "src/html/layout/default.hbs"
+        },
+        "includes": {
+            "src": "src/html/includes/*.hbs"
+        },
+        "helper": {
+            "src": "src/html/helper/*.js"
+        },
+        "data": {
+            "src": "src/html/data/*.json"
+        }
+    }
+}
