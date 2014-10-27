@@ -151,7 +151,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['jshint', 'concat:js', 'concat:all'],
+                tasks: ['jshint', 'concat:vendor', 'concat:all'],
                 options: {
                     livereload: true
                 }
