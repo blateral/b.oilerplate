@@ -3,7 +3,7 @@
   "version": "1.1.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/futurekind/launcher.git"
+    "url": "https://github.com/blateral/b.oilerplate.git"
   },
   "dependencies": {
     "assemble": "^0.4.42",
