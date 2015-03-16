@@ -1,8 +1,12 @@
+var browserSync = require("browser-sync");
+
 module.exports = function(grunt) {
 
     // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('assemble');
+
+    var settings = grunt.file.readJSON('settings.json');
 
     grunt.initConfig({
 
@@ -100,15 +104,6 @@ module.exports = function(grunt) {
             }
         },
 
-        connect: {
-            server: {
-                options: {
-                    hostname: '*',
-                    base: 'dist'
-                }
-            }
-        },
-
         clean: {
             dist: 'dist',
             build: [
@@ -149,48 +144,62 @@ module.exports = function(grunt) {
 
         watch: {
 
+            options: {
+                spawn: false // Very important, don't miss this
+            },
+
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['jshint', 'concat:vendor', 'concat:all'],
-                options: {
-                    livereload: true
-                }
+                tasks: ['jshint', 'concat:main', 'concat:all', 'bs-inject-js']
             },
 
             vendor: {
                 files: '<%= concat.vendor.src %>',
-                tasks: ['concat:vendor', 'concat:all']
+                tasks: ['concat:vendor', 'concat:all', 'bs-inject-js']
             },
 
             scss: {
                 files: '<%= settings.css.scss.src %>',
-                tasks: ['sass', 'autoprefixer'],
-                options: {
-                    livereload: true
-                }
+                tasks: ['sass', 'autoprefixer', 'bs-inject-css']
             },
 
             webroot: {
                 files: 'src/webroot/**',
-                tasks: 'copy',
-                options: {
-                    livereload: true
-                }
+                tasks: ['copy', 'bs-inject-html']
             },
 
             html: {
                 files: '<%= settings.html.all.src %>',
-                tasks: 'assemble:dev',
-                options: {
-                    livereload: true
-                }
-            },
+                tasks: ['assemble:dev', 'bs-inject-html']
+            }
         }
 
     });
 
+    grunt.registerTask('bs-init', function () {
+        var done = this.async();
+        browserSync({
+            port: 8000,
+            server: './dist'
+        }, function (err, bs) {
+            done();
+        });
+    });
+
+    grunt.registerTask('bs-inject-css', function () {
+        browserSync.reload(settings.css.main.dist);
+    });
+
+    grunt.registerTask('bs-inject-js', function () {
+        console.log(settings.js.all.dist);
+        browserSync.reload(settings.js.all.dist);
+    });
+
+    grunt.registerTask('bs-inject-html', function () {
+        browserSync.reload();
+    });
+
     grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build']);
     grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy', 'assemble:dev']);
-    grunt.registerTask('server', ['connect', 'watch']);
-    grunt.registerTask('default', ['compile' ,'server']);
+    grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
 };
