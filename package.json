@@ -1,17 +1,17 @@
 {
   "name": "b.oilerplate",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/blateral/b.oilerplate.git"
   },
   "dependencies": {
     "assemble": "^0.4.42",
+    "browser-sync": "^2.2.4",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^1.0.1",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-connect": "^0.8.0",
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-jshint": "^0.10.0",
