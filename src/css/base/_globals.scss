@@ -1,9 +1,13 @@
 // Colors definitions
-$colorGray: #ccc;
-$colorRed: #ff0000;
-
-// Color mappings
-$colorLinkHover: $colorRed;
+// Use it with `color`-Mixin
+// Example background-color: color('gray', 'dark')
+$colors : (
+    'gray': (
+        'light': #ccc,
+        'medium': #888,
+        'dark': #333
+    )
+);
 
 // Fonts
 $fontPrimary: 'Raleway', sans-serif;
