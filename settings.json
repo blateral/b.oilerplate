@@ -28,7 +28,7 @@
 
     "html": {
         "all": {
-            "src": "src/html/**/*.html"
+            "src": "src/html/**/*"
         },
         "main": {
             "src": "src/html/*.html"
