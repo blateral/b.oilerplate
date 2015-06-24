@@ -1,0 +1,18 @@
+// Utilities and Helper
+
+/**
+ * Visually hidden
+ */
+.h-vh {
+    position: absolute;
+    left: -9999px;
+
+    @each $name, $bp in $breakpoints {
+        &--#{$name} {
+            @include bp(#{$name}) {
+                position: absolute !important;
+                left: -9999px !important;
+            }
+        }
+    }
+}

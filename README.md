@@ -19,7 +19,6 @@ This boilerplate makes heavy use of node.js, npm and Grunt. So make sure, these 
 
 ## Developing
 1. Run `grunt`
-2. Open up your browser with http://localhost:8000
 
 ## Building
-1. Run `grunt build` 
+1. Run `grunt build`
