@@ -94,8 +94,10 @@ module.exports = function(grunt) {
                 'dist/css/*.map',
                 'dist/css/*.css',
                 '!dist/css/*.min.css',
+                '!dist/css/*.fonts.css',
                 'dist/js/*.js',
-                '!dist/js/*.min.js'
+                '!dist/js/*.min.js',
+                '!dist/**/*.custom.*'
             ]
         },
 
