@@ -15,7 +15,9 @@ $fontSecondary: 'Lora', serif;
 
 // Breakpoints
 $breakpoints: (
-    'large': '(min-width:  40em)'
+    'medium': '(min-width: 40em)',
+    'large': '(min-width:  64em)',
+    'xlarge': '(min-width: 90em)'
 );
 
 // Legacy
