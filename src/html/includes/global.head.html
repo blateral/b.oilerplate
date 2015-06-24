@@ -3,13 +3,13 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+{{>global.head.scripts}}
 
-{{#if usemin}}
-<link rel="stylesheet" href="css/main.min.css">
-{{else}}
+{{#if usemin}}{{else}}
 <link rel="stylesheet" href="css/main.css">
 {{/if}}
-
 <!--[if lte IE 8]><link rel="stylesheet" href="css/old-ie.css"><![endif]-->
-
-{{!-- <link href="media/favicon.ico?v=140515" rel="icon"> --}}
+<!--link href="media/favicon.ico?v=140515" rel="icon"-->
+<noscript>
+    <link rel="stylesheet" href="css/main.min.css">
+</noscript>

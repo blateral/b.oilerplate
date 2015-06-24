@@ -37,7 +37,7 @@
             "src": "src/html/layout/default.html"
         },
         "includes": {
-            "src": "src/html/includes/*.html"
+            "src": "src/html/includes/*"
         },
         "helper": {
             "src": "src/html/helper/*.js"
