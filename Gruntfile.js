@@ -83,7 +83,8 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'src/webroot',
                 src: '**',
-                dest: 'dist'
+                dest: 'dist',
+                dot: true
             }
         },
 
