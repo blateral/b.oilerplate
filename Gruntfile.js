@@ -147,11 +147,6 @@ module.exports = function(grunt) {
                 tasks: ['jshint', 'browserify', 'bs-inject-js']
             },
 
-            vendor: {
-                files: '<%= concat.vendor.src %>',
-                tasks: ['concat:vendor', 'concat:all', 'bs-inject-js']
-            },
-
             scss: {
                 files: '<%= settings.css.scss.src %>',
                 tasks: ['sass', 'autoprefixer', 'bs-inject-css']
