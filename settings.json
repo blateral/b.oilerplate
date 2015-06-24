@@ -28,16 +28,16 @@
 
     "html": {
         "all": {
-            "src": "src/html/**/*.hbs"
+            "src": "src/html/**/*.html"
         },
         "main": {
-            "src": "src/html/*.hbs"
+            "src": "src/html/*.html"
         },
         "layout": {
-            "src": "src/html/layout/default.hbs"
+            "src": "src/html/layout/default.html"
         },
         "includes": {
-            "src": "src/html/includes/*.hbs"
+            "src": "src/html/includes/*.html"
         },
         "helper": {
             "src": "src/html/helper/*.js"
