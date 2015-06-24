@@ -63,23 +63,6 @@ module.exports = function(grunt) {
             ]
         },
 
-        concat: {
-            main: {
-                src: ['<%= settings.js.modules.src %>', '<%= settings.js.main.src %>'],
-                dest: '<%= settings.js.main.dist %>'
-            },
-
-            vendor: {
-                src: '<%= settings.js.vendor.src %>',
-                dest: '<%= settings.js.vendor.dist %>'
-            },
-
-            all: {
-                src: ['<%= settings.js.vendor.dist %>', '<%= settings.js.main.dist %>'],
-                dest: '<%= settings.js.all.dist %>'
-            }
-        },
-
         uglify: {
             js: {
                 options: {
@@ -108,12 +91,21 @@ module.exports = function(grunt) {
             dist: 'dist',
             build: [
                 'dist/tmp',
-                'dist/css/*.map', 
-                'dist/css/*.css', 
-                '!dist/css/*.min.css', 
-                'dist/js/*.js', 
+                'dist/css/*.map',
+                'dist/css/*.css',
+                '!dist/css/*.min.css',
+                'dist/js/*.js',
                 '!dist/js/*.min.js'
             ]
+        },
+
+        browserify: {
+            dist: {
+                files: {
+                    '<%= settings.js.all.dist %>': ['<%= settings.js.modules.src %>', '<%= settings.js.main.src %>'],
+                },
+                options: {}
+            }
         },
 
         assemble: {
@@ -150,7 +142,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['jshint', 'concat:main', 'concat:all', 'bs-inject-js']
+                tasks: ['jshint', 'browserify', 'bs-inject-js']
             },
 
             vendor: {
@@ -199,7 +191,7 @@ module.exports = function(grunt) {
         browserSync.reload();
     });
 
-    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build']);
-    grunt.registerTask('compile', ['concat', 'sass', 'autoprefixer', 'copy', 'assemble:dev']);
+    grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build']);
+    grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'assemble:dev']);
     grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
 };
