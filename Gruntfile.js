@@ -132,7 +132,8 @@ module.exports = function(grunt) {
                 src: '<%= settings.html.main.src %>',
                 dest: 'dist/',
                 options: {
-                    usemin: true
+                    usemin: true,
+                    version: '<%= pkg.version %>'
                 }
             }
         },
