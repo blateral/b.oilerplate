@@ -45,5 +45,19 @@
         "data": {
             "src": "src/html/data/*.json"
         }
+    },
+
+    "sftp": {
+        "src": "dist",
+        "dest": "/path/to/your/destination",
+
+        "server": {
+            "host": "yourdomain.com",
+            "port": "22",
+            "key": {
+                "username": "username",
+                "password": "password"
+            }
+        }
     }
 }

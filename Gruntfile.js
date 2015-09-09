@@ -95,7 +95,7 @@ module.exports = function(grunt) {
                 'dist/css/*.map',
                 'dist/css/*.css',
                 '!dist/css/*.min.css',
-                '!dist/css/*.fonts.css',
+                '!dist/css/*.woff.css',
                 'dist/js/*.js',
                 '!dist/js/*.min.js',
                 '!dist/**/*.custom.*'
@@ -132,8 +132,19 @@ module.exports = function(grunt) {
                 src: '<%= settings.html.main.src %>',
                 dest: 'dist/',
                 options: {
-                    usemin: true
+                    usemin: true,
+                    version: '<%= pkg.version %>'
                 }
+            }
+        },
+
+        shell: {
+            build: {
+                command: './node_modules/kss/bin/kss-node --config kss-config-build.json'
+            },
+            
+            dev: {
+                command: './node_modules/kss/bin/kss-node --config kss-config-dev.json'
             }
         },
 
@@ -150,7 +161,7 @@ module.exports = function(grunt) {
 
             scss: {
                 files: '<%= settings.css.scss.src %>',
-                tasks: ['sass', 'autoprefixer', 'bs-inject-css']
+                tasks: ['sass', 'autoprefixer', 'shell:dev', 'bs-inject-css']
             },
 
             webroot: {
@@ -161,6 +172,21 @@ module.exports = function(grunt) {
             html: {
                 files: '<%= settings.html.all.src %>',
                 tasks: ['assemble:dev', 'bs-inject-html']
+            }
+        },
+
+        'sftp-deploy': {
+
+            build: {
+                auth: {
+                    host: '<%= settings.sftp.server.host %>',
+                    port: '<%= settings.sftp.server.port %>',
+                    authKey: '<%= settings.sftp.server.key %>'
+                },
+                src: '<%= settings.sftp.src %>',
+                dest: '<%= settings.sftp.dest %>',
+                exclusions: ['dist/**/.DS_Store'],
+                cache : false
             }
         }
 
@@ -189,7 +215,8 @@ module.exports = function(grunt) {
         browserSync.reload();
     });
 
-    grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build']);
-    grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'assemble:dev']);
+    grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'shell:build']);
+    grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'shell:dev', 'assemble:dev']);
     grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
+    grunt.registerTask('deploy', ['build' ,'sftp-deploy']);
 };

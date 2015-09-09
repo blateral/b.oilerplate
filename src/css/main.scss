@@ -1,26 +1,38 @@
-// ****************************
-//	VENDOR
-// ****************************
+/**
+ * Base
+ *
+ * Styleguide 1
+ */
+@import "base/globals";
+@import "base/mixins";
+@import "base/elements";
 
-// ****************************
-//	BASE
-// ****************************
-@import "base/globals";         // Variables
-@import "base/mixins";          // all Mixins
-@import "base/elements";        // all element selectors e.g. html, body, a, ul etc.
-@import "base/utility";         // Utilities and Helper
+@import "../../bower_components/normalize.css/normalize";
 
-// ****************************
-//	LAYOUT
-// ****************************
+/**
+ * Layout
+ *
+ * Styleguide 2
+ */
 @import "layout/header";
 
-// ****************************
-//	MODULES
-// ****************************
+/**
+ * Module
+ *
+ * Styleguide 3
+ */
 @import "modules/nav";
 
-// ****************************
-//	COMPONENTS
-// ****************************
+/**
+ * Komponenten
+ *
+ * Styleguide 4
+ */
 @import "components/Nav";
+
+/**
+ * Utility & Helper
+ *
+ * Styleguide 5
+ */
+@import "base/utility";

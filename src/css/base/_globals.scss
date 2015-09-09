@@ -1,6 +1,32 @@
-// Colors definitions
-// Use it with `color`-Mixin
-// Example background-color: color('gray', 'dark')
+/**
+ * Farben
+ *
+ * Farben werden über die Sass-Funktion `color($family, $variation)` angwendet:
+ *
+ * ```css
+ * .foo {
+ *     color: color('gray', 'light');
+ *     background-color: color('gray', 'dark');
+ * }
+ * ```
+ *
+ * <br>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #ccc;"></div>
+ *     `color('gray', 'light')`
+ * </div>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #888;"></div>
+ *     `color('gray', 'medium')`
+ * </div>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #333;"></div>
+ *     `color('gray', 'dark')`
+ * </div>
+ *
+ * Styleguide 1.1
+ */
+
 $colors : (
     'gray': (
         'light': #ccc,
@@ -9,9 +35,34 @@ $colors : (
     )
 );
 
-// Fonts
-$fontPrimary: 'Raleway', sans-serif;
-$fontSecondary: 'Lora', serif;
+
+/**
+ * Fonts
+ *
+ * Fonts werden über die Sass-Funktion `font($family, $style)` angwendet.
+ *
+ * ```css
+ * .foo {
+ *     font-family: font('crimson', 'bold');
+ * }
+ * ```
+ *
+ * Schriftfamilie | Schnitt | Sass | Beispiel
+ * --- | --- | --- | ---
+ * Crimson Text | Roman | `font('crimson', 'roman')` | <span style="font-family: crimson_textroman, serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * &nbsp; | Bold | `font('crimson', 'bold')` | <span style="font-family: crimson_textbold, serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * &nbsp; | Semibold Italic | `font('crimson', 'semibold-italic')` | <span style="font-family: crimson_textsemibold_italic, serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ *
+ * Styleguide 1.2
+ */
+
+$fonts: (
+    'crimson': (
+        'bold': 'crimson_textbold, serif',
+        'roman': 'crimson_textroman, serif',
+        'semibold-italic': 'crimson_textsemibold_italic, serif'
+    )
+);
 
 // Breakpoints
 $breakpoints: (
@@ -22,3 +73,17 @@ $breakpoints: (
 
 // Legacy
 $old-ie: false !default;
+
+.kss-color {
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    text-align: center;
+
+    &__fill {
+        width:220px;
+        height: 160px;
+        margin-bottom: 5px;
+    }
+}
