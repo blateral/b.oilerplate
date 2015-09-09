@@ -156,7 +156,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['jshint', 'browserify', 'shell:dev', 'bs-inject-js']
+                tasks: ['jshint', 'browserify', 'bs-inject-js']
             },
 
             scss: {
