@@ -1,6 +1,32 @@
-// Colors definitions
-// Use it with `color`-Mixin
-// Example background-color: color('gray', 'dark')
+/**
+ * Farben
+ *
+ * Farben werden über die Sass-Funktion `color($family, $variation)` angwendet:
+ *
+ * ```css
+ * .foo {
+ *     color: color('gray', 'light');
+ *     background-color: color('gray', 'dark');
+ * }
+ * ```
+ *
+ * <br>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #ACB8BF;"></div>
+ *     `color('gray', 'light')`
+ * </div>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #5e6672;"></div>
+ *     `color('gray', 'medium')`
+ * </div>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #484E57;"></div>
+ *     `color('gray', 'dark')`
+ * </div>
+ *
+ * Styleguide 1.1
+ */
+
 $colors : (
     'gray': (
         'light': #ccc,
@@ -22,3 +48,17 @@ $breakpoints: (
 
 // Legacy
 $old-ie: false !default;
+
+.kss-color {
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    text-align: center;
+
+    &__fill {
+        width:220px;
+        height: 160px;
+        margin-bottom: 5px;
+    }
+}
