@@ -47,16 +47,16 @@
         }
     },
 
-    "deploy": {
+    "sftp": {
         "src": "dist",
-        "dest": "",
+        "dest": "/path/to/your/destination",
 
         "server": {
-            "host": "",
+            "host": "yourdomain.com",
             "port": "22",
             "key": {
-                "username": "",
-                "password": ""
+                "username": "username",
+                "password": "password"
             }
         }
     }

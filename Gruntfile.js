@@ -178,12 +178,12 @@ module.exports = function(grunt) {
 
             build: {
                 auth: {
-                    host: '<%= settings.deploy.server.host %>',
-                    port: '<%= settings.deploy.server.port %>',
-                    authKey: '<%= settings.deploy.server.key %>'
+                    host: '<%= settings.sftp.server.host %>',
+                    port: '<%= settings.sftp.server.port %>',
+                    authKey: '<%= settings.sftp.server.key %>'
                 },
-                src: '<%= settings.deploy.src %>',
-                dest: '<%= settings.deploy.dest %>',
+                src: '<%= settings.sftp.src %>',
+                dest: '<%= settings.sftp.dest %>',
                 exclusions: ['dist/**/.DS_Store'],
                 cache : false
             }
