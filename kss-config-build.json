@@ -1,0 +1,11 @@
+{
+    "source": "src/css",
+    "destination": "dist/docs",
+    "template": "bower_components/bkss/dist/template",
+    "css": [
+        "../css/main.min.css",
+        "../css/fonts.woff.css"
+    ],
+    "js": "../js/all.min.js",
+    "title": "Project Name: Living Styleguide"
+}
