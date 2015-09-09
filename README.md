@@ -1,6 +1,8 @@
 # b.oilerplate
 Yet another Node.js and GruntJS boilerplate, which features cool tasks like
 
+* working with a living styleguide created with node-kss and a kss-nodetemplate
+* deploy your files with grunt-sftp-deploy
 * compiling your SASS/SCSS through grunt-sass (yeah, the libsass thingy)
 * autoprefixes your CSS
 * hinting, concat and uglifying your javascript
