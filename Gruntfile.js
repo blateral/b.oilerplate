@@ -162,6 +162,21 @@ module.exports = function(grunt) {
                 files: '<%= settings.html.all.src %>',
                 tasks: ['assemble:dev', 'bs-inject-html']
             }
+        },
+
+        'sftp-deploy': {
+
+            build: {
+                auth: {
+                    host: '<%= settings.deploy.server.host %>',
+                    port: '<%= settings.deploy.server.port %>',
+                    authKey: '<%= settings.deploy.server.key %>'
+                },
+                src: '<%= settings.deploy.src %>',
+                dest: '<%= settings.deploy.dest %>',
+                exclusions: ['dist/**/.DS_Store'],
+                cache : false
+            }
         }
 
     });
@@ -192,4 +207,5 @@ module.exports = function(grunt) {
     grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build']);
     grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'assemble:dev']);
     grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
+    grunt.registerTask('deploy', ['build' ,'sftp-deploy']);
 };
