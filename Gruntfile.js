@@ -137,6 +137,16 @@ module.exports = function(grunt) {
             }
         },
 
+        shell: {
+            build: {
+                command: './node_modules/kss/bin/kss-node --config kss-config-build.json'
+            },
+            
+            dev: {
+                command: './node_modules/kss/bin/kss-node --config kss-config-dev.json'
+            }
+        },
+
         watch: {
 
             options: {
@@ -145,12 +155,12 @@ module.exports = function(grunt) {
 
             js: {
                 files: '<%= jshint.files %>',
-                tasks: ['jshint', 'browserify', 'bs-inject-js']
+                tasks: ['jshint', 'browserify', 'shell:dev', 'bs-inject-js']
             },
 
             scss: {
                 files: '<%= settings.css.scss.src %>',
-                tasks: ['sass', 'autoprefixer', 'bs-inject-css']
+                tasks: ['sass', 'autoprefixer', 'shell:dev', 'bs-inject-css']
             },
 
             webroot: {
@@ -204,8 +214,8 @@ module.exports = function(grunt) {
         browserSync.reload();
     });
 
-    grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build']);
-    grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'assemble:dev']);
+    grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'shell:build']);
+    grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'shell:dev', 'assemble:dev']);
     grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
     grunt.registerTask('deploy', ['build' ,'sftp-deploy']);
 };
