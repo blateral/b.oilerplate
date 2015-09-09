@@ -76,3 +76,16 @@
         @warn "Couldn't find a color group named `#{$group}`.";
     }
 }
+
+@function font($group, $variant) {
+    @if map-has-key($fonts, $group) {
+
+        @if map-has-key(map-get($fonts, $group), $variant) {
+            @return unquote(map-get(map-get($fonts, $group), $variant));
+        } @else {
+            @warn "Couldn't find a font `#{$variant}` in group named `#{$group}`.";
+        }
+    } @else {
+        @warn "Couldn't find a font group named `#{$group}`.";
+    }
+}

@@ -35,9 +35,34 @@ $colors : (
     )
 );
 
-// Fonts
-$fontPrimary: 'Raleway', sans-serif;
-$fontSecondary: 'Lora', serif;
+
+/**
+ * Fonts
+ *
+ * Fonts werden über die Sass-Funktion `font($family, $style)` angwendet.
+ *
+ * ```css
+ * .foo {
+ *     font-family: font('oswald', 'bold');
+ * }
+ * ```
+ *
+ * Schriftfamilie | Schnitt | Sass | Beispiel
+ * --- | --- | --- | ---
+ * Crimson Text | Roman | `font('crimson', 'roman')` | <span style="font-family: crimson_textroman, serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * &nbsp; | Bold | `font('crimson', 'bold')` | <span style="font-family: crimson_textbold, serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * &nbsp; | Semibold Italic | `font('crimson', 'semibold-italic')` | <span style="font-family: crimson_textsemibold_italic, serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ *
+ * Styleguide 1.2
+ */
+
+$fonts: (
+    'crimson': (
+        'bold': 'crimson_textbold, serif',
+        'roman': 'crimson_textroman, serif',
+        'semibold-italic': 'crimson_textsemibold_italic, serif'
+    )
+);
 
 // Breakpoints
 $breakpoints: (
