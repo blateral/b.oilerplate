@@ -55,12 +55,15 @@ module.exports = function(grunt) {
             }
         },
 
-        jshint: {
-            files: [
+        eslint: {
+            target: [
                 'Gruntfile.js',
                 '<%= settings.js.modules.src %>',
                 '<%= settings.js.main.src %>'
-            ]
+            ],
+            options: {
+                quiet: true
+            }
         },
 
         uglify: {
@@ -103,11 +106,13 @@ module.exports = function(grunt) {
         },
 
         browserify: {
-            dist: {
-                files: {
-                    '<%= settings.js.all.dist %>': ['<%= settings.js.modules.src %>', '<%= settings.js.main.src %>'],
-                },
-                options: {}
+            all: {
+                src: ['src/js/**/*.js'],
+                dest: 'dist/js/all.js',
+                options: {
+                    transform: ['babelify'],
+                    watch: true
+                }
             }
         },
 
@@ -142,7 +147,7 @@ module.exports = function(grunt) {
             build: {
                 command: './node_modules/kss/bin/kss-node --config kss-config-build.json'
             },
-            
+
             dev: {
                 command: './node_modules/kss/bin/kss-node --config kss-config-dev.json'
             }
@@ -155,8 +160,13 @@ module.exports = function(grunt) {
             },
 
             js: {
-                files: '<%= jshint.files %>',
-                tasks: ['jshint', 'browserify', 'bs-inject-js']
+                files: '<%= eslint.target %>',
+                tasks: ['eslint']
+            },
+
+            browserifyBundle: {
+                files: '<%= settings.js.all.dist %>',
+                tasks: ['bs-inject-js']
             },
 
             scss: {
@@ -215,7 +225,7 @@ module.exports = function(grunt) {
         browserSync.reload();
     });
 
-    grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'shell:build']);
+    grunt.registerTask('build', ['clean', 'eslint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'shell:build']);
     grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'shell:dev', 'assemble:dev']);
     grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
     grunt.registerTask('deploy', ['build' ,'sftp-deploy']);

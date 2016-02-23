@@ -1,5 +1,8 @@
 html {
     font-size: 100%;
+    box-sizing: border-box;
 }
+
+*, *:before, *:after { box-sizing: inherit; }
 
 pre > code { background: none !important;}
