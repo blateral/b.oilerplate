@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "mocha": true,
+        "node": true
+    },
+    "ecmaFeatures": {
+        "blockBindings": true,
+        "arrowFunctions": true,
+        "classes": true,
+        "modules": true,
+        "restParams": true,
+        "jsx": true,
+        "defaultParams": true,
+        "objectLiteralShorthandProperties": true,
+        "templateStrings": true
+    },
+    "rules": {
+        "no-var": 1,
+        "no-console": 0,
+        "no-undef": 0,
+        "quotes": [0, "single"],
+        "no-underscore-dangle": 0,
+        "no-unused-vars": 1,
+        "handle-callback-err": 0
+    }
+}

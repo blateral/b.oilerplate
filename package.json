@@ -1,26 +1,32 @@
 {
   "name": "b.oilerplate",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/blateral/b.oilerplate.git"
   },
   "dependencies": {
-    "assemble": "^0.4.42",
-    "browser-sync": "^2.7.12",
+    "assemble": "0.4.42",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babelify": "^7.2.0",
+    "bkss": "^0.3.0",
+    "browser-sync": "^2.11.1",
+    "fontfaceobserver": "^1.6.4",
     "grunt": "^0.4.5",
-    "grunt-autoprefixer": "^3.0.3",
-    "grunt-browserify": "^3.8.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-copy": "^0.8.0",
-    "grunt-contrib-cssmin": "^0.12.3",
-    "grunt-contrib-jshint": "^0.11.2",
-    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^0.11.1",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-sass": "^1.0.0",
+    "grunt-eslint": "^18.0.0",
+    "grunt-sass": "^1.1.0",
     "grunt-sftp-deploy": "^0.2.4",
     "grunt-shell": "^1.1.2",
-    "kss": "^2.1.0",
-    "load-grunt-tasks": "^3.2.0"
+    "kss": "^2.4.0",
+    "load-grunt-tasks": "^3.4.0"
   }
 }
