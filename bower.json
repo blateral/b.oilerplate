@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "bkss": "*",
     "normalize.css": "*"
   }
 }
