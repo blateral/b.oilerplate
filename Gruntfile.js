@@ -4,7 +4,6 @@ module.exports = function(grunt) {
 
     // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
-    grunt.loadNpmTasks('assemble');
 
     var settings = grunt.file.readJSON('settings.json');
 
