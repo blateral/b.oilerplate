@@ -19,7 +19,8 @@
  *
  * Styleguide 5.1
  */
-.h-vh {
+.h-vh,
+%h-vh {
     position: absolute;
     left: -9999px;
 
@@ -51,7 +52,8 @@
  *
  * Styleguide 5.2
  */
-.h-vuh {
+.h-vuh,
+%h-vuh {
     position: static;
 
     @each $name, $bp in $breakpoints {

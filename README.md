@@ -1,26 +1,30 @@
 # b.oilerplate
-Yet another Node.js and GruntJS boilerplate, which features cool tasks like
+Yet another Node.js and GruntJS boilerplate, which cool features like
 
-* working with a living styleguide created with node-kss and a kss-nodetemplate
+* living styleguide generator with node-kss and [bkss](https://github.com/blateral/bkss) template
 * deploy your files with grunt-sftp-deploy
-* compiling your SASS/SCSS through grunt-sass (yeah, the libsass thingy)
-* autoprefixes your CSS
-* hinting, concat and uglifying your javascript
-* building html files with assemble.io and handlebars template
+* node-sass through grunt-sass
+* autoprefixer
+* ES6/ES2015 ready 
+* ESlint
+* static site generator (Assamble.io) included for quick prototyping
 * you name it
-
-This boilerplate is our personal project kick-off tool and we use it very often. It's only taylored to fit *our* needs. Feel free to use it, but beware, there might be better ones out there...
 
 <3 b.lateral
 
 ## Getting started
-This boilerplate makes heavy use of node.js, npm and Grunt. So make sure, these tools and their dependencies are installed before trying to build anything.
+This boilerplate is built upon node.js, npm and Grunt. So make sure, these tools and their dependencies are installed before trying to build anything.
 
-1. Run `npm install` from your project root directory
-2. Run `bower install` from your project root directory
+Run `npm install` from your project root directory
 
-## Developing
-1. Run `grunt`
+### Developing
+1. Run `npm start`
 
-## Building
-1. Run `grunt build`
+### Building
+1. Run `npm run build`
+
+### Deploying
+1. Run `npm run deploy`
+
+**Note:**<br>
+If you want to deploy, make sure you set your correct SFTP credentials (see [settings.json](https://github.com/blateral/b.oilerplate/blob/master/settings.json#L50))

@@ -1,0 +1,80 @@
+/**
+ * Media
+ *
+ * Das Media-Modul stellt standardmäßig ein Bild neben einem Text dar.
+ *
+ * <style>
+ *     .media--rev {
+ *         margin-top: 80px;
+ *     }
+ * </style>
+ *
+ * .media--top     - vertical alignment: top
+ * .media--bottom  - vertical alignment: bottom
+ * .is-condensed   - weniger Gutter ($spacer / 2)
+ *
+ * Markup:
+ * <div class="media  {{modifier_class}}">
+ *     <div class="media__image">
+ *         <img src="http://placehold.it/50x50" alt="">
+ *     </div>
+ *     <div class="media__text  copy">
+ *         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi fugit, doloribus quam, dolore id.
+ *     </div>
+ * </div>
+ * <div class="media  media--rev  {{modifier_class}}">
+ *     <div class="media__text  copy">
+ *         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi fugit, doloribus quam, dolore id.
+ *     </div>
+ *     <div class="media__image">
+ *         <img src="http://placehold.it/50x50" alt="">
+ *     </div>
+ * </div>
+ *
+ * Styleguide 3.1
+ */
+
+.media {
+    display: table;
+
+    &__image,
+    &__text {
+        display: table-cell;
+        vertical-align: middle;
+
+        .media--top & {
+            vertical-align: top;
+        }
+
+        .media--bottom & {
+            vertical-align: bottom;
+        }
+    }
+
+    &__image {
+        padding-right: $spacer;
+
+        .media--rev & {
+            padding-right: 0;
+            padding-left: $spacer;
+        }
+
+        .is-condensed & {
+            padding-right: $spacer / 2;
+
+            .media--rev & {
+                padding-right: 0;
+                padding-left: $spacer / 2;
+            }
+        }
+
+        img {
+            max-width: none;
+            display: block;
+        }
+    }
+
+    &__text {
+        width: 100%;
+    }
+}
