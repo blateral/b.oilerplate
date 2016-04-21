@@ -224,7 +224,6 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('bs-inject-js', function () {
-        console.log(settings.js.all.dist);
         browserSync.reload(settings.js.all.dist);
     });
 
