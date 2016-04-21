@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                 src: ['src/js/**/*.js'],
                 dest: 'dist/js/all.js',
                 options: {
-                    transform: ['babelify'],
+                    transform: ['babelify', 'envify'],
                     watch: true
                 }
             }
