@@ -6,7 +6,10 @@
     "url": "https://github.com/blateral/b.oilerplate.git"
   },
   "scripts": {
-    "postinstall": "say 'I am finished installing from NPM.' -v Whisper"
+    "postinstall": "say 'I am finished installing from NPM.' -v Whisper",
+    "start": "NODE_ENV=development grunt start",
+    "build": "NODE_ENV=production grunt _build",
+    "deploy": "NODE_ENV=production grunt _deploy"
   },
   "devDependencies": {
     "assemble": "^0.10.0",

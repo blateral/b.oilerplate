@@ -232,8 +232,20 @@ module.exports = function(grunt) {
         browserSync.reload();
     });
 
-    grunt.registerTask('build', ['clean', 'eslint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'usebanner', 'shell:build']);
+    grunt.registerTask('build', _ => {
+        grunt.warn('\n\n`grunt build` ist sowas von 2015. Bitte `npm run build` nutzen\n\n');
+    })
+
+    grunt.registerTask('deploy', _ => {
+        grunt.warn('\n\n`grunt deploy` ist sowas von 2015. Bitte `npm run deploy` nutzen\n\n');
+    })
+
+    grunt.registerTask('default', _ => {
+        grunt.warn('\n\n`grunt` ist sowas von 2015. Bitte `npm start` nutzen\n\n');
+    })
+
+    grunt.registerTask('_build', ['clean', 'eslint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'usebanner', 'shell:build']);
     grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'shell:dev', 'assemble:dev']);
-    grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
-    grunt.registerTask('deploy', ['build' ,'sftp-deploy']);
+    grunt.registerTask('start', ['compile' ,'bs-init', 'watch']);
+    grunt.registerTask('_deploy', ['_build' ,'sftp-deploy']);
 };
