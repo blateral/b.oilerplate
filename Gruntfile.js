@@ -67,9 +67,6 @@ module.exports = function(grunt) {
 
         uglify: {
             js: {
-                options: {
-                    banner: "<%= banner %>\n"
-                },
                 files: [{
                     expand: true,
                     cwd: 'dist/js',
@@ -152,6 +149,17 @@ module.exports = function(grunt) {
             }
         },
 
+        usebanner: {
+            dist: {
+                options: {
+                    banner: '<%= banner %>'
+                },
+                files: {
+                    src: ['dist/css/*.min.css', 'dist/js/*.min.css']
+                }
+            }
+        },
+
         watch: {
 
             options: {
@@ -224,7 +232,7 @@ module.exports = function(grunt) {
         browserSync.reload();
     });
 
-    grunt.registerTask('build', ['clean', 'eslint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'shell:build']);
+    grunt.registerTask('build', ['clean', 'eslint', 'browserify', 'uglify', 'sass', 'autoprefixer', 'cssmin', 'copy', 'assemble:build', 'clean:build', 'usebanner', 'shell:build']);
     grunt.registerTask('compile', ['browserify', 'sass', 'autoprefixer', 'copy', 'shell:dev', 'assemble:dev']);
     grunt.registerTask('default', ['compile' ,'bs-init', 'watch']);
     grunt.registerTask('deploy', ['build' ,'sftp-deploy']);
