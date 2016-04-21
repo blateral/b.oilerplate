@@ -3,6 +3,12 @@
  *
  * Das Media-Modul stellt standardmäßig ein Bild neben einem Text dar.
  *
+ * <style>
+ *     .media--rev {
+ *         margin-top: 80px;
+ *     }
+ * </style>
+ *
  * .media--top     - vertical alignment: top
  * .media--bottom  - vertical alignment: bottom
  * .is-condensed   - weniger Gutter ($spacer / 2)
@@ -14,6 +20,14 @@
  *     </div>
  *     <div class="media__text  copy">
  *         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi fugit, doloribus quam, dolore id.
+ *     </div>
+ * </div>
+ * <div class="media  media--rev  {{modifier_class}}">
+ *     <div class="media__text  copy">
+ *         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi fugit, doloribus quam, dolore id.
+ *     </div>
+ *     <div class="media__image">
+ *         <img src="http://placehold.it/50x50" alt="">
  *     </div>
  * </div>
  *
@@ -40,8 +54,18 @@
     &__image {
         padding-right: $spacer;
 
+        .media--rev & {
+            padding-right: 0;
+            padding-left: $spacer;
+        }
+
         .is-condensed & {
-            padding-right: $spacer / 2
+            padding-right: $spacer / 2;
+
+            .media--rev & {
+                padding-right: 0;
+                padding-left: $spacer / 2;
+            }
         }
 
         img {
