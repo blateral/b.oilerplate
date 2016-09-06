@@ -179,6 +179,10 @@
     @each $name, $list in $colors {
         &--#{$name} {
             @each $name, $color in $list {
+                @if ($name == 'default') {
+                    color: $color;
+                }
+
                 &--#{$name} {
                     color: $color;
                 }
@@ -191,6 +195,10 @@
     @each $name, $list in $colors {
         &--#{$name} {
             @each $name, $color in $list {
+                @if ($name == 'default') {
+                    background-color: $color;
+                }
+
                 &--#{$name} {
                     background-color: $color;
                 }

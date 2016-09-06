@@ -24,7 +24,7 @@
  * </div>
  * <div class="kss-color">
  *     <div class="kss-color__fill" style="background-color: #4A90E2;"></div>
- *     `color('blue', 'medium')`
+ *     `color('blue', 'default')`
  * </div>
  *
  * Styleguide 1.1
@@ -37,7 +37,7 @@ $colors : (
     'blue': (
         'light': #EBF9FE,
         'regular': #54CCF4,
-        'medium': #4A90E2
+        'default': #4A90E2,
     )
 );
 
