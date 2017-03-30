@@ -1,0 +1,67 @@
+/**
+ * Section Attribute
+ *
+ * ```markup
+ * <element data-compose="plain">
+ * <element data-compose="color">
+ * <element data-compose="seperator">
+ * ```
+ *
+ * Styleguide 6.1
+ */
+
+/**
+ * Section + Section (vom gleichen typ)
+ *
+ * Wenn eine Sektion mit Attribut ``data-compose="plain"`` auf ``data-compose="plain"`` oder ``data-compose="color"`` auf ``data-compose="color"`` folgt, wird bei der letzten Sektion ``padding-top: 0 !important;`` gesetzt.
+ *
+ * ```markup
+ * <element data-compose="plain"> + <element data-compose="plain">
+ * <element data-compose="color"> + <element data-compose="color">
+ * ```
+ *
+ * Markup:
+ * <div class="h-sp--2  h-sp--4@large" data-compose="plain">
+ *     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus necessitatibus autem porro sunt cumque recusandae atque dolorum, velit ex soluta dolorem libero. Quisquam beatae maxime optio modi placeat nobis sequi.
+ * </div>
+ * <div class="h-sp--2  h-sp--4@large" data-compose="plain">
+ *     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus cum in blanditiis soluta enim architecto consectetur exercitationem, assumenda fugit veritatis. Cumque adipisci ullam aliquam beatae, obcaecati odio repudiandae et quas.
+ * </div>
+ * <div class="h-sp--2  h-sp--4@large  h-bg--blue" data-compose="color">
+ *     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus necessitatibus autem porro sunt cumque recusandae atque dolorum, velit ex soluta dolorem libero. Quisquam beatae maxime optio modi placeat nobis sequi.
+ * </div>
+ * <div class="h-sp--2  h-sp--4@large  h-bg--blue" data-compose="color">
+ *     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus cum in blanditiis soluta enim architecto consectetur exercitationem, assumenda fugit veritatis. Cumque adipisci ullam aliquam beatae, obcaecati odio repudiandae et quas.
+ * </div>
+ *
+ * Styleguide 6.1.1
+ */
+
+[data-compose="plain"] + [data-compose="plain"],
+[data-compose="color"] + [data-compose="color"] {
+    padding-top: 0 !important;
+}
+
+/**
+ * Section + Seperator
+ *
+ * Wenn eine Sektion mit Attribut ``data-compose="seperator"`` auf ``data-compose="color"`` folgt, wird bei der seperator Sektion ``padding-top: $spacer * 2 !important;`` gesetzt.
+ *
+ * ```markup
+ * <element data-compose="plain"> + <element data-compose="plain">
+ * ```
+ *
+ * Markup:
+ * <div class="h-sp--2  h-sp--4@large  h-bg--blue" data-compose="color">
+ *     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus necessitatibus autem porro sunt cumque recusandae atque dolorum, velit ex soluta dolorem libero. Quisquam beatae maxime optio modi placeat nobis sequi.
+ * </div>
+ * <div data-compose="seperator">
+ *     <hr class="ruler">
+ * </div>
+ *
+ * Styleguide 6.1.2
+ */
+
+[data-compose="color"] + [data-compose="seperator"] {
+    padding-top: $spacer * 2 !important;
+}
