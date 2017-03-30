@@ -8,13 +8,15 @@ const StyleguidePlugin = require('./.blat-scripts/plugins/styleguidePlugin');
 const HtmlWebpackPluginHelper = require('./.blat-scripts/templates/webpackHtmlTemplateHelper');
 const cssLoaders = require('./.blat-scripts/loaders/cssLoadersHelper');
 
-const htmlWebpackPlugins = HtmlWebpackPluginHelper().files.map(file => {
+const htmlWebpackPlugins = HtmlWebpackPluginHelper(pkg.project).files.map(file => {
     return new HtmlWebpackPlugin(file)
 })
 
 const styleguidePlugin = new StyleguidePlugin({
     source: 'src/css',
     destination: 'dist/docs',
+    css: pkg.project.css,
+    js: pkg.project.js,
     template: 'node_modules/bkss/dist/template',
     title: "Living Styleguide"
 })
@@ -28,7 +30,7 @@ module.exports = {
         require.resolve('./.blat-scripts/polyfills.js'),
         './src/js/index',
         './src/css/index.scss',
-        ...HtmlWebpackPluginHelper().files.map(f => f.entry)
+        ...HtmlWebpackPluginHelper(pkg.project).files.map(f => f.entry)
     ],
 
     output: {

@@ -42,5 +42,11 @@
   },
   "eslintConfig": {
     "extends": "./.blat-scripts/eslint/config.js"
+  },
+
+  "project": {
+    "pagetitle": "Title",
+    "css": [],
+    "js": []
   }
 }
