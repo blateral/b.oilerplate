@@ -14,33 +14,18 @@
  *
  * Styleguide 2
  */
-@import "layout/header";
-
-/**
- * Module
- *
- * Styleguide 3
- */
-@import "modules/media";
-@import "modules/poster";
 
 /**
  * Komponenten
  *
- * Styleguide 4
+ * Styleguide 3
  */
-@import "components/Nav";
+@import "components/media";
+@import "components/poster";
 
 /**
  * Utility & Helper
  *
- * Styleguide 5
+ * Styleguide 4
  */
 @import "base/utility";
-
-/**
- * Compose
- *
- * Styleguide 6
- */
-@import "base/compose";

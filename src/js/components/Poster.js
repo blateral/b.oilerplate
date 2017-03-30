@@ -1,3 +1,4 @@
+import 'picturefill';
 import imagesLoaded from 'imagesloaded';
 
 const posters = document.querySelectorAll('.js-poster');
@@ -7,7 +8,7 @@ function cutsMustard() {
 }
 
 function setBgImage(poster, img) {
-    picturefill({
+    window.picturefill({
         elements: [img]
     });
     poster.style.backgroundImage = `url(${img.currentSrc || img.src})`;
