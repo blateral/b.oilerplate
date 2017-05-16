@@ -25,6 +25,30 @@ const banner = `@package ${pkg.name}
 @version ${pkg.version}
 @build ${new Date().toUTCString()}`
 
+let plugins = [
+    ...htmlWebpackPlugins,
+    styleguidePlugin,
+    new webpack.DefinePlugin({
+        'process.env': {
+            'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }
+    }),
+]
+
+if(process.env.NODE_ENV === 'production') {
+    plugins = [
+        ...plugins,
+        new ExtractTextPlugin('css/main.css'),
+        new webpack.BannerPlugin(banner),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+            sourceMap: true,
+        })
+    ]
+}
+
 module.exports = {
     entry: [
         require.resolve('./.blat-scripts/polyfills.js'),
@@ -35,27 +59,11 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/bundle.js',
+        filename: 'js/[name].bundle.js',
         publicPath: '/'
     },
 
-    plugins: [
-        ...htmlWebpackPlugins,
-        new ExtractTextPlugin('css/main.css'),
-        styleguidePlugin,
-        new webpack.BannerPlugin(banner),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-            },
-            sourceMap: true,
-        }),
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-            }
-        }),
-    ],
+    plugins: plugins,
 
     module: {
         
@@ -95,8 +103,10 @@ module.exports = {
                     cacheDirectory: true,
                     presets: [
                         ['env', {useBuiltIns: false}],
-                        ['stage-3']
+                        ['stage-3'],
+                        ['react']
                     ],
+                    plugins: ['syntax-dynamic-import']
                 }
             },
 
