@@ -8,6 +8,7 @@ const StyleguidePlugin = require('./.blat-scripts/plugins/styleguidePlugin');
 const HtmlWebpackPluginHelper = require('./.blat-scripts/templates/webpackHtmlTemplateHelper');
 const cssLoaders = require('./.blat-scripts/loaders/cssLoadersHelper');
 
+
 const htmlWebpackPlugins = HtmlWebpackPluginHelper(pkg.project).files.map(file => {
     return new HtmlWebpackPlugin(file)
 })
@@ -17,7 +18,7 @@ const styleguidePlugin = new StyleguidePlugin({
     destination: 'dist/docs',
     css: pkg.project.css,
     js: pkg.project.js,
-    template: 'node_modules/bkss/dist/template',
+    template: './.blat-scripts/bkss/template',
     title: "Living Styleguide"
 })
 

@@ -1,0 +1,36 @@
+/*
+Inline List
+
+.inline-list--top - valign top
+.inline-list--center - valign center
+
+Markup:
+<ul class="inline-list  {{modifier_class}}">
+    <li>Some Text</li>
+    <li>Lorem ipsum dolor sit amet.</li>
+    <li><img src="http://placehold.it/300x220" alt=""></li>
+    <li><img src="http://placehold.it/80x80" alt=""></li>
+    <li>Lorem ipsum dolor sit amet.</li>
+    <li>Sit amet.</li>
+</ul>
+
+Styleguide lists.inline-list
+*/
+
+.inline-list {
+    margin: 0;
+    margin-left: -$nudge--large;
+    margin-bottom: -$nudge--large;
+    padding: 0;
+    list-style: none;
+
+
+    li {
+        padding-left: $nudge--large;
+        padding-bottom: $nudge--large;
+        display: inline-block;
+    }
+}
+
+.inline-list--top    li { vertical-align: top;   }
+.inline-list--center li { vertical-align: middle; }

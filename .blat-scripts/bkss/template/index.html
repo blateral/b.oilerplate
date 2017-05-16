@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>{{options.title}}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="public/css/kss.css">
+    {{{styles}}}
+</head>
+<body>
+
+    <header class="l-bkss-header">
+        <h1 class="l-bkss-header__h">{{options.title}}</h1>
+        <input type="checkbox" id="nav-toggle">
+        <label for="nav-toggle"></label>
+
+        <nav class="bkss-nav">
+            <ul class="bkss-nav__menu" data-kss-ref="{{rootName}}">
+                {{#eachRoot}}
+                <li><a href="section-{{reference}}.html" data-kss-link-ref="{{reference}}"><span class="bkss-nav__menu__i">&nbsp;</span><span class="bkss-nav__menu__name">{{header}}</span></a>
+                </li>
+                {{/eachRoot}}
+            </ul>
+            {{#if homepage}}
+            {{else}}
+            <ul class="bkss-nav__menu  bkss-nav__menu--child" id="js-menu-children">
+            {{#eachSection rootName}}
+            {{#ifDepth 2}}
+            <li><a href="#section-{{reference}}" data-bkss-section-ref="{{reference}}"><span class="bkss-nav__menu__i"></span><span class="bkss-nav__menu__name">{{header}}</span></a></li>
+            {{/ifDepth}}
+            {{/eachSection}}
+            </ul>
+            {{/if}}
+        </nav>
+    </header>
+
+    <main class="l-bkss-main">
+        {{#if homepage}}
+        <div class="bkss-copy">
+        {{{homepage}}}
+        </div>
+        {{else}}
+        {{#eachSection rootName}}
+        <section id="section-{{reference}}" data-bkss-section="{{reference}}">
+            {{#ifDepth 1}}
+                <h1 class="bkss-h  bkss-h--1"><span>{{reference}}</span></h1>
+            {{/ifDepth}}
+            {{#ifDepth 2}}
+                <h2 class="bkss-h  bkss-h--2">{{header}}</h2>
+            {{/ifDepth}}
+            {{#ifDepth 3}}
+                <h3 class="bkss-h  bkss-h--3">{{header}}</h3>
+            {{/ifDepth}}
+            {{#if description}}
+            <div class="bkss-copy  bkss-desc">
+                {{{description}}}
+            </div>
+            {{/if}}
+
+            {{#if markup}}
+            <div class="bkss-example">
+                {{{markup}}}
+            </div>
+            {{#eachModifier}}
+            <div class="bkss-modifier">
+                <div class="bkss-modifier__head">
+                    <span class="bkss-modifier__head__title"><code>{{name}}</code></span>
+                    <span class="bkss-modifier__head__desc">{{description}}</span>
+                </div>
+                <div class="bkss-modifier__example">
+                    {{{markup}}}
+                </div>
+            </div>
+            {{/eachModifier}}
+            <div class="bkss-markup">
+                <pre><code class="language-markup">{{markup}}</code></pre>
+            </div>
+            {{/if}}
+        </section>
+        {{/eachSection}}
+        {{/if}}
+    </main>
+
+    <footer class="l-bkss-footer">
+        Created with <a href="https://github.com/kss-node/kss-node">kss-node</a> and a kss-node template by <a href="http://blateral.com" class="bdot" title="b.lateral creative agency">
+    &bull;<span>b.lateral - creative agency</span>
+</a>
+    </footer>
+
+    <script src="public/js/kss.js" defer></script>
+    <script src="public/js/prism.js" defer></script>
+    {{{scripts}}}
+</body>
+</html>

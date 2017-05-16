@@ -1,43 +1,59 @@
 /**
  * Farben
  *
- * Farben werden über die Sass-Funktion `color($family, $variation)` angwendet:
- *
- * ```css
- * .foo {
- *     color: color('gray', 'medium');
- * }
- * ```
- *
+
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #ADD039;"></div>
+ *     `color('high', 'alpha')`
+ * </div>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #85A039;"></div>
+ *     `color('high', 'beta')`
+ * </div>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #53B774;"></div>
+ *     `color('high', 'gamma')`
+ * </div>
+ * <div class="kss-color">
+ *     <div class="kss-color__fill" style="background-color: #4CB3AE;"></div>
+ *     `color('high', 'delta')`
+ * </div>
  * <br>
  * <div class="kss-color">
- *     <div class="kss-color__fill" style="background-color: #9B9B9B;"></div>
- *     `color('gray', 'medium')`
+ *     <div class="kss-color__fill" style="background-color: #ffffff;"></div>
+ *     `color('mono', 'white')`
  * </div>
  * <div class="kss-color">
- *     <div class="kss-color__fill" style="background-color: #EBF9FE;"></div>
- *     `color('blue', 'light')`
+ *     <div class="kss-color__fill" style="background-color: #C6C6C6;"></div>
+ *     `color('mono', 'light')`
  * </div>
  * <div class="kss-color">
- *     <div class="kss-color__fill" style="background-color: #54CCF4;"></div>
- *     `color('blue', 'regular')`
+ *     <div class="kss-color__fill" style="background-color: #4B5860;"></div>
+ *     `color('mono', 'dark')`
  * </div>
+ * <br>
  * <div class="kss-color">
- *     <div class="kss-color__fill" style="background-color: #4A90E2;"></div>
- *     `color('blue', 'default')`
+ *     <div class="kss-color__fill" style="background-color: #FD6D6D;"></div>
+ *     `color('system', 'error')`
  * </div>
  *
- * Styleguide 1.1
+ * Styleguide base.colors
  */
 
 $colors : (
-    'gray': (
-        'medium': #9B9B9B,
+    'mono': (
+        'light': #C6C6C6,
+        'dark': #4B5860,
+        'white': #fff,
     ),
-    'blue': (
-        'light': #EBF9FE,
-        'regular': #54CCF4,
-        'default': #4A90E2,
+    'high': (
+        'alpha': #ADD039,
+        'beta': #85A039,
+        'gamma': #53B774,
+        'delta': #4CB3AE,
+    ),
+    'system': (
+        'error': #FD6D6D
     )
 );
 
@@ -47,17 +63,17 @@ $colors : (
  *
  * Schriftfamilie | Schnitt | Sass | Beispiel
  * --- | --- | --- | ---
- * Source Sans Pro | Normal | `$font__primary;` | <span style="font-family: 'Source Sans Pro', sans-serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
- * &nbsp; | Italic | `$font__primary; font-style: italic;` | <span style="font-family: 'Source Sans Pro', sans-serif; font-style: italic">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
- * &nbsp; | Semibold | `$font__primary; font-weight: 600;` | <span style="font-family: 'Source Sans Pro', sans-serif; font-weight: 600">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
- * &nbsp; | Bold | `$font__primary; font-weight: 700;` | <span style="font-family: 'Source Sans Pro', sans-serif; font-weight: 700">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
- * Droid Serif | Italic | `$font__secondary; font-style: italic` | <span style="font-family: 'Droid Serif', serif; font-style: italic">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * PT Sans | Normal | `$font__primary;` | <span style="font-family: 'PT Sans', sans-serif">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * &nbsp; | Italic | `$font__primary; font-style: italic;` | <span style="font-family: 'PT Sans', sans-serif; font-style: italic">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * &nbsp; | Bold | `$font__primary; font-weight: 700;` | <span style="font-family: 'PT Sans', sans-serif; font-weight: 700">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * Titillium Web | Semibold | `$font__secondary; font-weight: 600;` | <span style="font-family: 'Titillium Web', sans-serif; font-weight: 600">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
+ * &nbsp; | Bold | `$font__secondary; font-weight: 700` | <span style="font-family: 'Titillium Web', sans-serif; font-weight: 700">Grumpy wizards make toxic brew for the evil Queen and Jack.</span>
  *
- * Styleguide 1.2
+ * Styleguide base.fonts
  */
 
-$font__primary: 'Source Sans Pro', sans-serif;
-$font__secondary: 'Droid Serif', serif;
+$font__primary: 'PT Sans', sans-serif;
+$font__secondary: 'Titillium Web', sans-serif;
 
 // Breakpoints
 $breakpoints: (
@@ -70,10 +86,16 @@ $breakpoints: (
 $old-ie: false !default;
 
 // Spacings
-$spacer: 20px;
+$nudge: 5px;
+$nudge--large: 20px;
+$spacer: $nudge--large;
 
 // Z-Index
 $zi__poster__content: 1;
+
+// Rasterfari Settings
+$rasterfari__gutter: $spacer;
+$rasterfari__breakpoints: $breakpoints;
 
 .kss-color {
     margin-bottom: 5px;
