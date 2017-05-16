@@ -1,0 +1,80 @@
+/**
+ * Flag
+ *
+ * Das Flag-Modul stellt standardmäßig ein Bild neben einem Text dar.
+ *
+ * <style>
+ *     .flag--rev {
+ *         margin-top: 80px;
+ *     }
+ * </style>
+ *
+ * .flag--top     - vertical alignment: top
+ * .flag--bottom  - vertical alignment: bottom
+ * .is-condensed   - weniger Gutter ($spacer / 2)
+ *
+ * Markup:
+ * <div class="flag  {{modifier_class}}">
+ *     <div class="flag__image">
+ *         <img src="http://placehold.it/50x50" alt="">
+ *     </div>
+ *     <div class="flag__text  copy">
+ *         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi fugit, doloribus quam, dolore id.
+ *     </div>
+ * </div>
+ * <div class="flag  flag--rev  {{modifier_class}}">
+ *     <div class="flag__text  copy">
+ *         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum modi fugit, doloribus quam, dolore id.
+ *     </div>
+ *     <div class="flag__image">
+ *         <img src="http://placehold.it/50x50" alt="">
+ *     </div>
+ * </div>
+ *
+ * Styleguide layout.Flag
+ */
+
+.flag {
+    display: table;
+
+    &__image,
+    &__text {
+        display: table-cell;
+        vertical-align: middle;
+
+        .flag--top & {
+            vertical-align: top;
+        }
+
+        .flag--bottom & {
+            vertical-align: bottom;
+        }
+    }
+
+    &__image {
+        padding-right: $spacer;
+
+        .flag--rev & {
+            padding-right: 0;
+            padding-left: $spacer;
+        }
+
+        .is-condensed & {
+            padding-right: $spacer / 2;
+
+            .flag--rev & {
+                padding-right: 0;
+                padding-left: $spacer / 2;
+            }
+        }
+
+        img {
+            max-width: none;
+            display: block;
+        }
+    }
+
+    &__text {
+        width: 100%;
+    }
+}

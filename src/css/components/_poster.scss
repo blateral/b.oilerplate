@@ -1,0 +1,35 @@
+/**
+ * Poster
+ *
+ * Markup:
+ * <div class="poster  js-poster" style="height: 400px">
+ *     <picture class="poster__img">
+ *         <source srcset="http://placehold.it/1280x400&text=Large%20Screens" media="(min-width: 64em)">
+ *         <source srcset="http://placehold.it/800x400&text=Medium%20Screens" media="(min-width: 40em)">
+ *         <img srcset="http://placehold.it/320x400&text=Default%20Image" alt="">
+ *     </picture>
+ *     <div class="poster__content">
+ *         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita fugit id, dicta eius nemo debitis saepe sequi! Aut expedita officiis, qui provident! Aspernatur, molestiae asperiores! Voluptatem sed, repellat suscipit ratione.</p>
+ *     </div>
+ * </div>
+ *
+ * Styleguide media.poster
+ */
+
+
+.poster {
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    &__img {
+        @extend %h-vh;
+        height: 0;
+    }
+
+    &__content {
+        position: relative;
+        z-index: $zi__poster__content;
+    }
+}
