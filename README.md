@@ -1,30 +1,45 @@
 # b.oilerplate
-Yet another Node.js and GruntJS boilerplate, which cool features like
+This is our internal front end boilerplate at [b.lateral](https://blateral.com). It's fully based on `webpack` and encourages a style guide driven css development.
 
-* living styleguide generator with node-kss and [bkss](https://github.com/blateral/bkss) template
-* deploy your files with grunt-sftp-deploy
-* node-sass through grunt-sass
-* autoprefixer
-* ES6/ES2015 ready 
-* ESlint
-* static site generator (Assamble.io) included for quick prototyping
-* you name it
-
-<3 b.lateral
+## Features (not all implemented yet)
+- [x] Webpack
+- [x] Hot Reloading
+- [x] Static site builder with `kss`
+- [x] Living Styleguide generator
+- [x] Sass
+- [x] Simple asset loading with `file-loader`
+- [x] ESnext
+- [ ] Jest
+- [ ] Upgrading to `kss@3.x.x`
 
 ## Getting started
-This boilerplate is built upon node.js, npm and Grunt. So make sure, these tools and their dependencies are installed before trying to build anything.
 
-Run `npm install` from your project root directory
+As `npm` still works with this boilerplate, we strongly encourage you to use `yarn` due to faster install time.
+
+### Clone
+```bash
+mkdir nice-project
+cd nice-project
+git clone https://github.com/blateral/b.oilerplate.git .
+```
+
+### Prepare
+Remove any previous version control which comes with the `git clone` and initialize a new empty git repository
+
+```bash
+rm -rf .git
+git init
+```
 
 ### Developing
-1. Run `npm start`
+```bash
+yarn start
+```
 
 ### Building
-1. Run `npm run build`
+```bash
+yarn run build
+```
 
-### Deploying
-1. Run `npm run deploy`
 
-**Note:**<br>
-If you want to deploy, make sure you set your correct SFTP credentials (see [settings.json](https://github.com/blateral/b.oilerplate/blob/master/settings.json#L50))
+

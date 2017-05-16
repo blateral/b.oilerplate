@@ -3,6 +3,16 @@ html {
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    color: color('mono', 'dark');
+    font-family: sans-serif;
+
+    .fl & {
+        font-family: $font__primary;
+    }
+}
+
 *, *:before, *:after { box-sizing: inherit; }
 
 pre > code { background: none !important;}
