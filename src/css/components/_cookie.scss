@@ -15,6 +15,7 @@ Styleguide media.cookie
 .cookie {
     position: relative;
     padding: $nudge * 3;
+    padding-right: $nudge--large * 2;
 
     &--floating {
         width: 100%;
