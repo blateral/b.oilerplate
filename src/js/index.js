@@ -1,5 +1,9 @@
 import './components/Poster';
 import { createFontLoader } from './lib/Fontloader';
+import { handleCookie } from './components/Cookie';
+
+handleCookie('cookieMsg')
+
 
 /**
  * Beispiel:

@@ -5,6 +5,7 @@
   "author": "Fabian Trinler <fabian@blateral.com>",
   "license": "MIT",
   "devDependencies": {
+    "array.from": "^1.0.3",
     "autoprefixer": "^7.1.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
@@ -33,6 +34,7 @@
     "postcss-loader": "^2.0.5",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.17.0",
+    "svgxuse": "^1.2.4",
     "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1",

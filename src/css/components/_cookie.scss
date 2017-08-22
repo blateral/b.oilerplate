@@ -1,0 +1,36 @@
+/*
+Cookie
+
+.cookie--floating - Floating Position
+
+Markup:
+<div class="cookie  {{modifier_class}}" id="js-cookie">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos dignissimos voluptate repellat nemo, quaerat sequi esse quod tenetur ipsum debitis! Voluptatem ad natus expedita consectetur.
+    <img src="../media/icons/close.svg" alt="" class="cookie__close" id="js-cookie-close">
+</div>
+
+Styleguide media.cookie
+*/
+
+.cookie {
+    position: relative;
+    padding: $nudge * 3;
+    padding-right: $nudge--large * 2;
+
+    &--floating {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
+    
+    &__close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
