@@ -1,6 +1,6 @@
 {
     "name": "b.oilerplate",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "main": "src/js/index.js",
     "author": "Fabian Trinler <fabian@blateral.com>",
     "license": "MIT",
@@ -41,7 +41,8 @@
         "whatwg-fetch": "^2.0.3"
     },
     "scripts": {
-        "start": "webpack-dev-server --content-base dist/  --inline --colors --port 8000 --hot --host '0.0.0.0'",
+        "start":
+            "webpack-dev-server --content-base dist/  --inline --colors --port 8000 --hot --host '0.0.0.0'",
         "build": "rm -rf dist && NODE_ENV=production webpack"
     },
     "eslintConfig": {
