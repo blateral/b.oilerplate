@@ -55,5 +55,10 @@
     "dependencies": {
         "react": "^16.2.0",
         "react-dom": "^16.2.0"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "trailingComma": "es5",
+        "singleQuote": true
     }
 }
