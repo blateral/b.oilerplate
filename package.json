@@ -11,6 +11,7 @@
         "babel-eslint": "^8.2.1",
         "babel-loader": "^7.1.2",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-preset-env": "^1.6.0",
         "babel-preset-react": "^6.24.1",
         "css-loader": "^0.28.5",
@@ -39,8 +40,7 @@
         "whatwg-fetch": "^2.0.3"
     },
     "scripts": {
-        "start":
-            "webpack-dev-server --content-base dist/  --inline --colors --port 8000 --hot --host '0.0.0.0'",
+        "start": "webpack-dev-server --content-base dist/  --inline --colors --port 8000 --hot --host '0.0.0.0'",
         "build": "rm -rf dist && NODE_ENV=production webpack"
     },
     "eslintConfig": {

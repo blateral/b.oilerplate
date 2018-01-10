@@ -111,11 +111,15 @@ module.exports = {
                                 targets: {
                                     browsers: ['last 2 versions'],
                                 },
+                                useBuiltIns: true,
                             },
                         ],
                         ['react'],
                     ],
-                    plugins: ['syntax-dynamic-import'],
+                    plugins: [
+                        'syntax-dynamic-import',
+                        ['transform-object-rest-spread', { useBuiltIns: true }],
+                    ],
                 },
             },
 
