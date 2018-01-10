@@ -8,10 +8,11 @@ const StyleguidePlugin = require('./.blat-scripts/plugins/styleguidePlugin');
 const HtmlWebpackPluginHelper = require('./.blat-scripts/templates/webpackHtmlTemplateHelper');
 const cssLoaders = require('./.blat-scripts/loaders/cssLoadersHelper');
 
-
-const htmlWebpackPlugins = HtmlWebpackPluginHelper(pkg.project).files.map(file => {
-    return new HtmlWebpackPlugin(file)
-})
+const htmlWebpackPlugins = HtmlWebpackPluginHelper(pkg.project).files.map(
+    file => {
+        return new HtmlWebpackPlugin(file);
+    }
+);
 
 const styleguidePlugin = new StyleguidePlugin({
     source: 'src/css',
@@ -19,24 +20,24 @@ const styleguidePlugin = new StyleguidePlugin({
     css: pkg.project.css,
     js: pkg.project.js,
     template: './.blat-scripts/bkss/template',
-    title: "Living Styleguide"
-})
+    title: 'Living Styleguide',
+});
 
 const banner = `@package ${pkg.name}
 @version ${pkg.version}
-@build ${new Date().toUTCString()}`
+@build ${new Date().toUTCString()}`;
 
 let plugins = [
     ...htmlWebpackPlugins,
     styleguidePlugin,
     new webpack.DefinePlugin({
         'process.env': {
-            'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        }
+            NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        },
     }),
-]
+];
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     plugins = [
         ...plugins,
         new ExtractTextPlugin('css/main.css'),
@@ -46,8 +47,8 @@ if(process.env.NODE_ENV === 'production') {
                 warnings: false,
             },
             sourceMap: true,
-        })
-    ]
+        }),
+    ];
 }
 
 module.exports = {
@@ -55,44 +56,45 @@ module.exports = {
         require.resolve('./.blat-scripts/polyfills.js'),
         './src/js/index',
         './src/css/index.scss',
-        ...HtmlWebpackPluginHelper(pkg.project).files.map(f => f.entry)
+        ...HtmlWebpackPluginHelper(pkg.project).files.map(f => f.entry),
     ],
 
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].bundle.js',
-        publicPath: '/'
+        publicPath: '/',
     },
 
     plugins: plugins,
 
     module: {
-        
         rules: [
-
             {
                 test: /\.js$/,
                 enforce: 'pre',
-                include: [ path.resolve(__dirname, 'src') ],
+                include: [path.resolve(__dirname, 'src')],
                 loader: 'eslint-loader',
                 options: {
                     useEslintrc: false,
-                    configFile: path.join(__dirname, '.blat-scripts/eslint/eslintrc')
-                }
+                    configFile: path.join(
+                        __dirname,
+                        '.blat-scripts/eslint/eslintrc'
+                    ),
+                },
             },
 
             {
                 test: /\.html$/,
-                include: [ path.resolve(__dirname, 'src') ],
+                include: [path.resolve(__dirname, 'src')],
                 loader: 'html-loader',
                 options: {
-                    interpolate: true
-                }
+                    interpolate: true,
+                },
             },
 
             {
                 test: /\.scss$/,
-                use: cssLoaders(ExtractTextPlugin, process.env.NODE_ENV)
+                use: cssLoaders(ExtractTextPlugin, process.env.NODE_ENV),
             },
 
             {
@@ -103,12 +105,18 @@ module.exports = {
                     babelrc: false,
                     cacheDirectory: true,
                     presets: [
-                        ['env', {useBuiltIns: false}],
-                        ['stage-3'],
-                        ['react']
+                        [
+                            'env',
+                            {
+                                targets: {
+                                    browsers: ['last 2 versions'],
+                                },
+                            },
+                        ],
+                        ['react'],
                     ],
-                    plugins: ['syntax-dynamic-import']
-                }
+                    plugins: ['syntax-dynamic-import'],
+                },
             },
 
             {
@@ -138,8 +146,6 @@ module.exports = {
                     name: 'static/media/[name].[hash:8].[ext]',
                 },
             },
-
-        ]
-
-    }
-}
+        ],
+    },
+};
