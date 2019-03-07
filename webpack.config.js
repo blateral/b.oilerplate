@@ -54,7 +54,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
     entry: [
         require.resolve('./.blat-scripts/polyfills.js'),
-        './src/js/index',
+        './src/js/index.ts',
         './src/css/index.scss',
         ...HtmlWebpackPluginHelper(pkg.project).files.map(f => f.entry),
     ],
@@ -63,6 +63,10 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].bundle.js',
         publicPath: '/',
+    },
+
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
 
     plugins: plugins,
@@ -98,29 +102,20 @@ module.exports = {
             },
 
             {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
                     babelrc: false,
                     cacheDirectory: true,
-                    presets: [
-                        [
-                            'env',
-                            {
-                                targets: {
-                                    browsers: ['last 2 versions'],
-                                },
-                                useBuiltIns: true,
-                            },
-                        ],
-                        ['react'],
-                    ],
-                    plugins: [
-                        'syntax-dynamic-import',
-                        'transform-class-properties',
-                        ['transform-object-rest-spread', { useBuiltIns: true }],
-                    ],
+                    presets: [['@babel/env'], ['@babel/react']],
+                    plugins: ['@babel/syntax-dynamic-import'],
                 },
             },
 
@@ -136,6 +131,7 @@ module.exports = {
                     /\.jpe?g$/,
                     /\.png$/,
                     /\.svg$/,
+                    /\.tsx?$/,
                 ],
                 loader: 'file-loader',
                 options: {
