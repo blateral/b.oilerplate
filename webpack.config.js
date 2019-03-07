@@ -104,23 +104,8 @@ module.exports = {
                 options: {
                     babelrc: false,
                     cacheDirectory: true,
-                    presets: [
-                        [
-                            'env',
-                            {
-                                targets: {
-                                    browsers: ['last 2 versions'],
-                                },
-                                useBuiltIns: true,
-                            },
-                        ],
-                        ['react'],
-                    ],
-                    plugins: [
-                        'syntax-dynamic-import',
-                        'transform-class-properties',
-                        ['transform-object-rest-spread', { useBuiltIns: true }],
-                    ],
+                    presets: [['@babel/env'], ['@babel/react']],
+                    plugins: ['@babel/syntax-dynamic-import'],
                 },
             },
 
