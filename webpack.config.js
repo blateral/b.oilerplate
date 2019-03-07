@@ -54,7 +54,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
     entry: [
         require.resolve('./.blat-scripts/polyfills.js'),
-        './src/js/index',
+        './src/js/index.ts',
         './src/css/index.scss',
         ...HtmlWebpackPluginHelper(pkg.project).files.map(f => f.entry),
     ],
@@ -63,6 +63,10 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].bundle.js',
         publicPath: '/',
+    },
+
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
 
     plugins: plugins,
@@ -95,6 +99,12 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: cssLoaders(ExtractTextPlugin, process.env.NODE_ENV),
+            },
+
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
 
             {
