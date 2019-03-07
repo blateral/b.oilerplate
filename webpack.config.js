@@ -131,6 +131,7 @@ module.exports = {
                     /\.jpe?g$/,
                     /\.png$/,
                     /\.svg$/,
+                    /\.tsx?$/,
                 ],
                 loader: 'file-loader',
                 options: {

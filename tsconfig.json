@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        "outDir": "dist",
         "lib": ["es5", "es6", "es7", "es2017", "dom"],
         "sourceMap": true,
         "allowJs": false,
